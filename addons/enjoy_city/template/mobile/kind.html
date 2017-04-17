@@ -1,0 +1,30 @@
+{template 'eheader'}
+
+<div class="mui-content mui-row mui-fullscreen">
+<div class="mui-col-xs-3">
+<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+<a class="mui-control-item slide-menu" href="{php echo $this->createMobileUrl('allkind')}" data-target="category" data-title="所有分类">所有分类</a>
+<a class="mui-control-item nav-item {if $cid==0}mui-active{/if}" href="{php echo $this->createMobileUrl('kind',array('cid'=>0,'pid'=>$pid))}" data-id="0">热门</a>
+{loop $kinds $item}
+<a class="mui-control-item nav-item {if $item[id]==$cid}mui-active{/if}" href="{if empty($item['wurl'])}{php echo $this->createMobileUrl('kind',array('cid'=>$item['id'],'pid'=>$pid))}{else}{$item['wurl']}{/if}" data-id="{$item['id']}">{$item['name']}</a>
+{/loop}
+</div>
+</div>
+<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+<div id="content0" class="mui-control-content mui-active" data-page="" data-api="/index/shopsearch.html?filter[cat_id]=40&amp;order=sortid%20DESC,tels%20DESC&amp;pagesize=20&amp;page=%page%">
+<ul class="company-list category-list" id="list0">
+{loop $firms $item}
+<a href="{php echo $this->createMobileUrl('firm',array('fid'=>$item[id]))}" _click="openIt" data-name="detail" target="_blank">
+<li>
+<img src="{if empty($item[icon])}{php echo tomedia($act[icon])}{else}{php echo tomedia($item[icon])}{/if}" class="company-icon">
+<em class="starlevel starlevel3">0★</em>
+<div class="company-info">
+<h4 class="mui-ellipsis">{$item[title]}{if !empty($item[breaks])}<font class="news-tag">惠</font>{/if}</h4>
+</div>
+<div class="more-link"></div>
+</li>
+</a>
+{/loop}
+
+</ul>
+</div></div></div><div style="height:40px;"></div></body></html>

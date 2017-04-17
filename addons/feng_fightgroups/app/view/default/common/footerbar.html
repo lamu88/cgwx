@@ -1,0 +1,17 @@
+<ul class="bottombarr" data-curind="0">
+	<a class="external {if $_GPC['ac']=='index'}cur{/if}" href="{php echo app_url('home/index')}">
+		<i class="icon iconfont {if $_GPC['ac']=='index'}icon-homefill{else}icon-home{/if}"></i><span>首页</span>
+	</a>
+	<a class="external {if $_GPC['ac']=='list'}cur{/if}" href="{php echo app_url('goods/list')}">
+		<i class="icon iconfont {if $_GPC['ac']=='list'}icon-goodsfill{else}icon-goods{/if}"></i><span>所有商品</span>
+	</a>
+	<a class="external {if $_GPC['ac']=='mygroup'}cur{/if}" href="{php echo app_url('order/mygroup/0')}">
+		<i class="icon iconfont {if $_GPC['ac']=='mygroup'}icon-friendfill{else}icon-friend{/if}"></i><span>我的拼团</span>
+	</a>
+	<a class="external {if $_GPC['ac']=='order'}cur{/if}" href="{php echo app_url('order/order')}">
+		<i class="icon iconfont {if $_GPC['ac']=='order'}icon-formfill{else}icon-form{/if}"></i><span>我的订单</span>
+	</a>
+	<a class="external {if $_GPC['ac']=='home'}cur{/if}" href="{php echo app_url('member/home')}">
+		<i class="icon iconfont {if $_GPC['ac']=='home'}icon-profilefill{else}icon-profile{/if}"></i><span>个人中心</span>
+	</a>
+</ul>

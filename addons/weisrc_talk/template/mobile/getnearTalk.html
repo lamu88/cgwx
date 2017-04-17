@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--android宽度自适应1:1-->
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <title>{$title}</title>
+    <link rel="stylesheet" type="text/css" href="{RES}/themes/css/basic.css"/>
+    <script type="text/javascript" src="{RES}/themes/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/basic.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/ajax-pushlet-client.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/jquery.cookie.js"></script>
+    <style type="text/css">
+        * {
+            line-height: 22px;
+        }
+
+        /*顶部*/
+        .pageTop {
+            width: 100%;
+            height: 50px;
+            background-color: #0FCF9E;
+            box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -moz-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -ms-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -o-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -webkit-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+        }
+
+        .top {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .head {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        .top span {
+            display: inline-block;
+            vertical-align: middle;
+            color: #fff;
+        }
+
+        .top .icon {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        /*对方*/
+        .ta, .me {
+            margin-top: 20px;
+            /*background-color: red;*/
+        }
+
+        .taHead {
+            float: left;
+            display: block;
+            width: 55px;
+            height: 55px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .taHead img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .taCon {
+            float: left;
+            display: block;
+            width: 70%;
+            margin-left: 1%;
+            font-size: 0;
+            margin-top: 5px;
+            /*background-color: blue;*/
+        }
+
+        .sanL {
+            display: block;
+            float: left;
+            border: 6px solid;
+            border-color: #fff #fff transparent transparent;
+        }
+
+        .taConR {
+            float: left;
+            max-width: 73%;
+            min-height: 26px;
+            background-color: #fff;
+            padding: 5px 12px 2%;
+            color: #0FCF9E;
+            font-size: 16px;
+            border-top-right-radius: 4px;
+            -moz-border-top-right-radius: 4px;
+            -ms-border-top-right-radius: 4px;
+            -o-border-top-right-radius: 4px;
+            -webkit-border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            -moz-border-bottom-right-radius: 4px;
+            -ms-border-bottom-right-radius: 4px;
+            -o-border-bottom-right-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+            -moz-border-bottom-left-radius: 4px;
+            -ms-border-bottom-left-radius: 4px;
+            -o-border-bottom-left-radius: 4px;
+            -webkit-border-bottom-left-radius: 4px;
+        }
+
+        .taConR img {
+            vertical-align: middle;
+        }
+
+        /*自己消息*/
+        .meHead {
+            float: right;
+            display: block;
+            width: 55px;
+            height: 55px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .meHead img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .meCon {
+            float: right;
+            display: block;
+            width: 70%;
+            margin-left: 1%;
+            font-size: 0;
+            margin-top: 5px;
+            /*background-color: blue;*/
+        }
+
+        .sanR {
+            display: block;
+            float: right;
+            border: 6px solid;
+            border-color: #fff transparent transparent #fff;
+        }
+
+        .meConL {
+            float: right;
+            max-width: 73%;
+            min-height: 26px;
+            background-color: #fff;
+            padding: 5px 12px 2%;
+            font-size: 16px;
+            border-top-left-radius: 4px;
+            -moz-border-top-left-radius: 4px;
+            -ms-border-top-left-radius: 4px;
+            -o-border-top-left-radius: 4px;
+            -webkit-border-top-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            -moz-border-bottom-right-radius: 4px;
+            -ms-border-bottom-right-radius: 4px;
+            -o-border-bottom-right-radius: 4px;
+            -webkit-border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+            -moz-border-bottom-left-radius: 4px;
+            -ms-border-bottom-left-radius: 4px;
+            -o-border-bottom-left-radius: 4px;
+            -webkit-border-bottom-left-radius: 4px;
+        }
+
+        .meConL img {
+            vertical-align: middle;
+        }
+
+        .textMini {
+            font-size: 10px;
+            color: #ccc;
+            line-height: 22px;
+        }
+
+        /*提示性的描述字体，淡雅*/
+
+        /*发送 定位*/
+        .send {
+            position: fixed;
+            width: 100%;
+            height: 47px;
+            bottom: 0px;
+            background-color: #0FCF9E;
+            box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -moz-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -ms-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -o-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+            -webkit-box-shadow: inset 0 -1px 3px rgba(150, 150, 150, 0.67);
+        }
+
+        .face {
+            float: left;
+            width: 12%;
+            height: 35px;
+            margin-top: 5px;
+        }
+
+        .face img {
+            display: block;
+            width: 30px;
+            height: 30px;
+            margin: 2px auto 0;
+        }
+
+        .input {
+            float: left;
+            width: 68.1%;
+            height: 30px;
+            line-height: 30px;
+            padding: 2px 1%;
+            margin: 6px 0 6px 0;
+            display: block;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            color: #666;
+        }
+
+        .btn {
+            float: right;
+            width: 14%;
+            margin: 6px 2% 0 0;
+            height: 30px;
+            line-height: 30px;
+            padding: 2px 0;
+            background: #fff;
+            background: -moz-linear-gradient(top, #fff, #f3f3f3 80%);
+            background: -webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f3f3f3));
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /*重写*/
+        .pageContentBox {
+            height: auto;
+            overflow: auto;
+            padding: 20px 0 70px 0;
+        }
+
+        .contentCenterBox {
+            width: 96%;
+            margin: 0 auto;
+        }
+
+        #face {
+            position: fixed;
+            bottom: 47px;
+            width: 100%;
+            background: #fff;
+            display: none;
+            padding: 10px 0;
+        }
+
+        #face .df {
+            width: 12.3%;
+            text-align: center;
+            height: 30px;
+            display: inline-block;
+        }
+
+        #face .df img {
+            width: 60%;
+            margin-top: 20%;
+        }
+
+        .more {
+            display: block;
+            width: 100px;
+            text-align: center;
+            padding: 0 15px;
+            line-height: 20px;
+            margin: 0 auto;
+            background-color: #ccc;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -ms-border-radius: 4px;
+        }
+    </style>
+    <script type="text/javascript">
+        setInterval(function () {
+            url="{php echo $this->createMobileurl('getnearTalkInfo', array(), true)}";
+            userid = "{$userid}";
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : {
+                    userid:userid
+                },
+                dataType : 'json',
+                timeout : 5000,
+                context : $('body'),
+                success : function(result) {
+                    if (result.isResultTrue == 1) {
+                        var html = result.resultMsg;
+                        $(html).appendTo($(".contentCenterBox"));
+                    }
+                },
+                error : function(data) {
+//                    alert('网络通讯失败，请稍等!');
+                }
+            });
+        }, 6000);
+    </script>
+</head>
+<body>
+<!--S 顶部条-->
+<div class="pageTop">
+    <div class="top">
+        <a href="{php echo $this->createMobileurl('getnearTaInfo', array('userid' => $userid), true)}"><img src="{php echo tomedia($talkuser['headimgurl']);}" alt="" class="head" onerror="this.src='resource/images/noavatar_middle.gif'"/></a>
+        <a href="{php echo $this->createMobileurl('getnearTaInfo', array('userid' => $userid), true)}"><span>{$talkuser['nickname']}</span></a>
+        <a href="{php echo $this->createMobileurl('getnearTaInfo', array('userid' => $userid), true)}"><img src="{RES}/themes/images/iconUserInfor.png" alt="" class="icon"></a>
+    </div>
+</div>
+<!--E 顶部条-->
+
+<!--S 聊天内容-->
+<div class="pageContentBox">
+    <input type="hidden" id="set_page" value="2" />
+    {if $pagecount > 1}
+    <a class="more" onclick="getMore()">加载更多</a>
+    {/if}
+    <div class="contentCenterBox" id="content_page">
+        <!--S 对方消息-->
+        {loop $chats $item}
+        {if $item['from_user'] != $from_user}
+        <div class="ta">
+            <a class="taHead" href="{php echo $this->createMobileurl('getnearTaInfo', array('userid' => $item['from_user']), true)}">
+                <img src="{php echo tomedia($talkuser['headimgurl'])}" alt=""/>
+            </a>
+            <div class="taCon">
+                <div class="sanL"></div>
+                <div class="taConR">{$item['content']}</div>
+                <!--内容-->
+                <div class="clearB"></div>
+                <!--清楚浮动-->
+                <span class="textMini" style="margin-left: 12px">{php echo date('Y-m-d H:i', $item['dateline'])}</span> <!--时间-->
+            </div>
+            <div class="clearB"></div>
+        </div>
+        {else}
+        <div class="me">
+            <a href="{php echo $this->createMobileurl('getnearMyInfo', array(), true)}" class="meHead">
+                <img src="{php echo tomedia($curuser['headimgurl'])}" alt="" />
+            </a>
+            <div class="meCon">
+                <div class="sanR"></div>
+                <div class="meConL">{$item['content']}</div>
+                <div class="clearB"></div>
+                <span class="textMini" style="margin-right: 12px;float: right">{php echo date('Y-m-d H:i', $item['dateline'])}</span>
+                <div class="clearB"></div>
+            </div>
+            <div class="clearB"></div>
+        </div>
+        {/if}
+        {/loop}
+    </div>
+    <!--S 发送消息定位-->
+    <div class="send">
+        <div class="contentCenterBox" style="width: 100%;">
+            <div class="face" onclick="showFace()">
+                <img src="{RES}/themes/images/iconFaceImg.png" alt="">
+            </div>
+            <input type="text" id="sendText" class="input" placeholder="" onclick="inputFun()"/>
+            <a class="btn">发送</a>
+            <div class="clearB"></div>
+        </div>
+    </div>
+    <!--E 发送消息定位-->
+</div>
+<div id="face">
+
+</div>
+<!--E 聊天内容-->
+<script type="text/javascript">
+    var today = new Date();
+    var varval = "";
+    var replaceText = function () {
+        var val = $('#sendText').val();
+        varval = $('#sendText').val();
+        for (var i = 0; i < arr.length; i++) {
+            while (val.indexOf(arr[i]) != -1) {
+                val = val.replace(arr[i], '<img style="width:30px;height:30px;" src="' + faceUrl + '/' + (i + 1) + '.png" />');
+
+            }
+        }
+        return val;
+    }
+    var rep = function (val) {
+        for (var i = 0; i < arr.length; i++) {
+            while (val.indexOf(arr[i]) != -1) {
+                val = val.replace(arr[i], '<img style="width:30px;height:30px;" src="' + faceUrl + '/' + (i + 1) + '.png" />');
+            }
+        }
+        return val;
+    }
+    var init = function (list) {
+        for (var i = 0; i < list.length; i++) {
+            var val = list[i].innerHTML;
+            for (var j = 0; j < arr.length; j++) {
+                while (val.indexOf(arr[j]) != -1) {
+                    val = val.replace(arr[j], '<img style="width:30px;height:30px;" src="' + faceUrl + '/' + (j + 1) + '.png" />');
+                }
+            }
+            list[i].innerHTML = val;
+        }
+    }
+
+    /*发送消息*/
+    var inputFun = function () {
+        $("#sendText").focus();
+//             $("#face").slideUp('fast');
+    };
+
+    window.onload = function () {
+        $(".input").focus();
+        var sendW = $(".send").width();
+        var sendTemp = 0.98 * sendW;
+        $(".btn").click(function () {
+            if ($('#sendText').val().trim().length <= 0) {
+                alert('不能为空');
+                return;
+            }
+            var curimg = "{$curuser['headimgurl']}";
+            var myinfourl = "{php echo $this->createMobileurl('getnearMyInfo', array(), true)}";
+            var val = replaceText();
+            var con = $(this).parent().find("input").val();
+            var html = '<div class="me">' +
+                    '<a href="'+myinfourl+'" class="meHead">' +
+                    '<img src="'+curimg+'" alt="" class="meHead"></a>' +
+                    '<div class="meCon">' +
+                    '<div class="sanR"></div>' +
+                    '<div class="meConL">' + val + '</div>' +
+                    '<div class="clearB"></div> <!--多一个清楚浮动-->' +
+                    '<span class="textMini" style="float: right;margin-right: 12px">' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() +
+                    ' ' + today.getHours() + ':' + today.getMinutes() + '</span>' +
+                    '<div class="clearB"></div>' +
+                    '</div>' +
+                    '<div class="clearB"></div>' +
+                    ' </div>';
+            $(html).appendTo($(".contentCenterBox"));
+            $(this).parent().find("input").val('');
+            //把值保存到后台
+            var posturl = "{php echo $this->createMobileurl('AddNearTalk', array(), true)}";
+            var talkuser = "{$talkuser['from_user']}";
+            var curuser = "{$curuser['from_user']}";
+            $.post(
+                    posturl, {
+                        acceptid: talkuser,
+                        senderid: curuser,
+                        content: varval
+                    }, function () {
+                    }
+            )
+            $(window).scrollTop($(".pageContentBox").height());
+        });
+        $(window).scrollTop($(".pageContentBox").height());
+    }
+    var insertHtml = function (str, id) {
+        var obj = document.getElementById(id);
+        if (document.selection) {
+            var sel = document.selection.createRange();
+            sel.text = str;
+        } else if (typeof obj.selectionStart == 'number' && typeof obj.selectionEnd == 'number') {
+            var startPos = obj.selectionStart,
+                    endPos = obj.selectionEnd,
+                    cursorPos = startPos,
+                    tmpStr = obj.value;
+            obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+            cursorPos += str.length;
+            obj.selectionStart = obj.selectionEnd = cursorPos;
+        } else {
+            obj.value += str;
+        }
+    }
+    var faceUrl = "{RES}/themes/images/faces";
+    var showFace = function () {
+        if ($('#face').css('display') != 'none') {
+            $('#face').slideUp('fast');
+            return;
+        }
+        $('#face').slideDown('fast');
+    }
+    $(function () {
+        var html = '';
+        for (var i = 1; i <= 60; i++) {
+            html += '<span class="df">';
+            html += '<a onclick="setFace(this)" index="' + i + '"><img src="' + faceUrl + '/' + i + '.png" /></a>';
+            html += '</span>';
+        }
+        $('#face').html(html);
+        var width = $(window).width() / 8;
+        $('.df').css({width: width, height: width});
+    });
+    var arr = ["[笑哈哈]", "[得瑟]", "[得意地笑]", "[转圈]", "[挤地铁]", "[我忍了]", "[粉爱你]", "[粉红兔火车]", "[转圈圈]", "[鼓掌]", "[压力]", "[抢镜]", "[草泥马]", "[神马]", "[多云]", "[给力]", "[围观]", "[v5]", "[小熊猫]", "[粉红兔微笑]", "[动感光波]", "[囧]", "[互粉]", "[礼物]", "[微笑]", "[呲牙笑]", "[大笑]", "[羞羞]", "[小可怜]", "[抠鼻孔]", "[惊讶]", "[大眼睛羞涩]", "[吐舌头]", "[闭嘴]", "[鄙视]", "[爱你哦]", "[泪牛满面]", "[偷笑]", "[嘴一个]", "[生病]", "[装可爱]", "[切~]", "[右不屑]", "[左不屑]", "[嘘]", "[雷人]", "[呕吐]", "[委屈]", "[装可爱]", "[再见]", "[疑问]", "[困]", "[money]", "[装酷]", "[色眯眯]", "[ok]", "[good]", "[nonono]", "[赞一个]", "[弱]"];
+    var setFace = function (e) {
+        insertHtml(arr[parseInt($(e).attr('index')) - 1], 'sendText');
+        $('#face').slideUp('fast');
+    }
+
+    $(function () {
+        init($(".taConR"));
+        init($(".meConL"));
+    })
+
+    function getMore() {
+        var page = $("#set_page").val();
+        var url = "{php echo $this->createMobileurl('getnearTalkToMore', array(), true)}";
+        userid = "{$userid}";
+        $.ajax({
+            url: url,
+            data: {
+                page: page,
+                userid: userid
+            },
+            type: "post",
+            dataType: "json",
+            beforeSend: function () {
+                $(".more").html("加载中.....");
+                $(".more").attr("onclick", "");
+            },
+            success: function (result) {
+                if (result.isResultTrue) {
+                    if (result.resultMsg != null) {
+                        var html = result.resultMsg;
+                        html += $("#content_page").html();
+                        $("#content_page").html(html);
+                        pagesize = result.pagesize;
+                        if (pagesize > page) {
+                            $(".more").html("加载更多");
+                            $(".more").attr("onclick", "getMore();");
+                        } else {
+                            $(".more").html("没有更多历史消息");
+                            $(".more").attr("onclick", "");
+                        }
+                        var index = parseInt(page) + 1;
+                        $("#set_page").val(index);
+                    } else {
+                        $(".more").html("没有更多历史消息");
+                        $(".more").attr("onclick", "");
+                    }
+
+                } else {
+                    alert(result.resultMsg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("系统异常请稍后再试.");
+                return;
+            }
+        });
+    }
+    var set_nearTalk = $.cookie("set_nearTalk");
+    if (set_nearTalk == null) {
+        $.cookie("set_nearTalk", "set_nearTalk");
+    } else {
+        window.location.reload();
+        $.cookie("set_nearTalk", null);
+    }
+</script>
+{php echo register_jssdk(false);}
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            success: function(){
+            },
+            cancel: function(){
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+</body>
+</html>

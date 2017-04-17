@@ -1,0 +1,546 @@
+{template 'common/header'}
+<title>设置</title>
+<style type="text/css">
+	body{
+		margin:0px;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="/addons/social_reward/static/js/dist/sweetalert/sweetalert.css">
+{if !$enable}
+<script type="text/javascript">
+	require(['core'], function(core) {
+		core.message("您无法设置该作品的模糊度","{php echo $this->createMobileUrl('center')}",'error');
+	});
+</script>
+{else}
+<link rel="stylesheet" type="text/css" href="/addons/social_reward/template/mobile/center/css/app.css">
+		<style type="text/css">
+			html,
+			body {
+				background-color: #000;
+				height: 100%;
+			}
+			.imgContainer{
+				width: 100%;
+				overflow: hidden;
+				overflow-y: auto;	
+				position: relative;			
+			}
+			.imgContainer img{
+				display: block;
+				visibility:hidden;
+			}
+			.imgContainer>i{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				width: 30px;
+				height: 30px;
+				background-image: url(../image/loading1.gif);
+				background-size: 100% 100%;
+			}
+			/*打分*/			
+			.mark_contation {
+				position: absolute;
+				left: 0;
+				bottom:0px;
+				width: 100%;
+				height: 170px;
+				background-color: rgba(255, 255, 255, 1);
+				z-index: 1;
+				/*display: none;*/
+			}
+			
+			.mark_body {
+				position: absolute;
+				left: 50%;
+				top: 0px;
+				width:auto;
+				min-width: 300px;
+				-webkit-transform: translate(-50%, 0%);
+				-moz-transform: translate(-50%, 0%);
+				-ms-transform: translate(-50%, 0%);
+				-o-transform: translate(-50%, 0%);
+				transform: translate(-50%, 0%);
+				margin-top: 10px;
+			}
+			
+			.slide {
+				width: 100%;
+				position: relative;
+				display: inline-block;
+				padding-left: 15px;
+			}
+			.text{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+			.controlbar-box {
+				position: relative;
+				width: 200px;
+				height: 14px;
+			}
+			
+			.controlbar-box .c-bg {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #f60;
+				border-radius: 30px;
+			}
+			
+			.controlbar-box .c-bg1 {
+				position: absolute;
+				left: 45px;
+				top: 7px;
+				width: 100%;
+				height: 2px;
+				background: #d3d3d3;
+				border-radius: 30px;
+				z-index: 2;
+			}
+			
+			.controlbar-box .c-round {
+				position: absolute;
+				left: 45px;
+				top: -4px;
+				z-index: 99;
+				width: 24px;
+				height: 24px;
+				line-height: 24px;
+				background-color: #f60;
+				border-radius: 50%;
+				cursor: pointer;
+				text-align: center;
+				color: #fff;
+			}
+			.controlbar-box .c-progress{
+				position:absolute; 
+				right:-70px; 
+				top:0px; 
+				z-index:8; 
+				width:20px;
+			}
+
+			.mark {
+				margin: 10px auto 0;
+				text-align: center;
+			}
+			
+			.mark input {
+				width: 50px;
+				height: 25px;
+				background-color: #e6e6e6;
+				margin: 0 7px 0 7px;
+				border-radius: 5px;
+				text-align: center;
+				color: #f60;				
+			}	
+			.btns{
+				width: 300px;
+				position: relative;	
+				margin: auto;	
+				text-align: center;
+			}
+			.middleText{
+				height: 40px;
+				line-height: 40px;
+				background-color: #f60;
+				padding: 0 20px;
+				margin-top: 5px;
+				color: #fff;
+				border-radius: 7px;
+			}
+			.suijiSelect{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				border: 1px solid #ccc;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 12px 12px;
+				margin: 0 5px;				
+			}
+			.bg_dui{
+				background-image: url(/addons/social_reward/static/images/dui.png);
+			}
+		</style>
+<script type="text/javascript">
+			 //图片居中显示  
+			function center_img(dom) {
+				dom.style.visibility = 'hidden';
+				var pWideth = dom.parentNode.offsetWidth;
+				var pHeight = dom.parentNode.offsetHeight;
+				var Wideth = dom.width;
+				var Height = dom.height;
+				if(Wideth >= Height){
+					dom.width = pWideth;
+					if(dom.height >= pHeight){
+						dom.width = dom.width * pHeight / dom.height;
+						dom.height = pHeight;	
+					}	
+				}else{
+					dom.height = pHeight;
+					if(dom.width >= pWideth){
+						dom.height = dom.height * pWideth / dom.width;
+						dom.width = pWideth;	
+					}	
+				}
+				dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';
+				dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
+				dom.style.visibility = 'visible';
+
+			}
+		</script>
+		<div class="imgContainer" id="imgContainer" style="height: 245px;">
+			<img id="imgID" src="{$data['blururl']}" onload="center_img(this);">
+		</div>
+		<script type="text/javascript">
+
+			var srceenHeight = document.body.clientHeight || window.innerHeight || document.documentElement.clientWidth;
+			document.getElementById("imgContainer").style.height = srceenHeight - 160 + 'px';
+		</script>
+		<div class="mark_contation" id="mark_contation">
+			<div class="mark_body">
+				<div class="slide">				
+					<div class="controlbar-box">
+						<div class="text">模糊：</div>
+						<div class="c-round" id="c_roud"></div>
+						<div class="c-bg1"></div>
+						<div class="c-bg"></div>
+						<div class="c-progress" id="blurNumber"></div>
+					</div>
+				</div>
+				<div class="mark">
+					<div>(只能输入1到99之间)</div>
+					<div style="margin: 5px 0;">
+						打赏 :
+						<span id="dao"><input type="text" id="mininputNumber" onblur="onblurNum(this,1)" value="1" onkeyup="inputNumberF(this,1)">元 到</span>
+						<input type="text" id="inputNumber" onblur="onblurNum(this,2)" value="3" onkeyup="inputNumberF(this,2)">元 												
+					</div>
+					
+					<span id="suijiSelect" class="suijiSelect bg_dui"></span>
+					<span>随机
+						<span id="randomNum">
+							(<label style="color: #f60;" id="minlableNumber">1</label>到<label id="lableNumber" style="color: #f60;">3</label>元)
+						</span>						
+					</span>
+				</div>
+				<div class="btns">
+					<span class="middleText" id="set" data-token="0">设置并生成模糊图</span>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+				var bar_round = document.querySelector('.c-round'); //小圆
+				var bar_num = document.querySelector('.c-bg'); //白色线
+				var sigmao = {$data['fuzzy']};
+				
+				
+				var sigma = sigmao / 100 * $('.controlbar-box').width();
+				var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+				if(offwidth <= sigma){
+					sigma = offwidth;
+				}
+				bar_round.style.left = sigma + 45 + 'px';
+				bar_num.style.width = sigma + 'px';
+				bar_num.style.zIndex = '20';
+				document.querySelector('.c-progress').innerHTML = sigmao;
+				
+				$('#inputNumber').val(parseFloat({$data['reward_max']}));
+				$('#lableNumber').html(parseFloat({$data['reward_max']}));
+				$('#mininputNumber').val(parseFloat({$data['reward_min']}));
+				$('#minlableNumber').html(parseFloat({$data['reward_min']}));
+				
+				if(parseInt({$data['random']}) == 0){
+					$('#suijiSelect').removeClass('bg_dui');
+					$('#randomNum').css('display','none');
+					$('#dao').css('display','none');
+				}else{
+					$('#suijiSelect').addClass('bg_dui');
+				}
+				$('#mark_contation').css('display','block');
+			});
+
+			//随机
+			$('#suijiSelect').click(function(){
+				if($(this).hasClass('bg_dui')){
+					$(this).removeClass('bg_dui');
+					$('#randomNum').css('display','none');	
+					$('#dao').css('display','none');
+				}else{
+					$(this).addClass('bg_dui');
+					$('#randomNum').css('display','inline-block');
+					$('#dao').css('display','inline-block');
+				}
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+					$('#inputNumber').val(mininputNumber);
+					$('#lableNumber').html(mininputNumber);
+				}
+			});
+			
+			//设置
+			$('#set').click(function(){
+				var token = $(this).data('token');
+				if(token == 1){
+					return false;
+				}else{
+					$(this).data('token','1');
+				}
+				require(['tpl', 'core'], function(tpl, core) {
+					if($('#suijiSelect').hasClass('bg_dui')){
+						var random = 1;
+					}else{
+						var random = 0;
+					}
+					
+					
+					var amount = parseFloat($('#inputNumber').val()).toFixed(2);
+					var amount_min = parseFloat($('#mininputNumber').val()).toFixed(2);
+					
+					if(!amount || amount<0){
+						core.tip.show('请输入有效数字');
+						return false;
+					}
+					if(!amount_min || amount_min<0){
+						core.tip.show('请输入有效数字');
+						return false;
+					}
+					
+					
+					var blurNumber = $('#blurNumber').html();
+					if(amount > 0){
+
+						core.loading();
+						core.tip.show('正在生成中。。。');
+						var data={"random":random,"fuzzy":blurNumber,"mediaid":"{$_GPC['mediaid']}","reward_min":amount_min,"reward_max":amount};
+						var url = "{php echo $this->createMobileUrl('center',array('op'=>'setting'))}";	
+						$.post(url,data,function(result){
+							if(result==1){
+								core.removeLoading();
+								core.tip.show('设置并生成成功，快去微信页面查看吧');
+								$(this).data('token','0');
+								require(['http://res.wx.qq.com/open/js/jweixin-1.0.0.js'],function(wx){
+									wx.closeWindow();
+								});
+							}else{
+								$(this).data('token','0');
+								core.removeLoading();
+								core.tip.show('图片生成失败，重新试试');
+							}
+						});
+						
+					}else{
+						core.tip.show('金额不能为0');
+					}
+				});
+			});
+			
+			//设置模糊图
+			var randomV = "{php echo random(4)}";
+			function setBlur(){
+				require(['tpl', 'core',"/addons/social_reward/static/js/dist/sweetalert/sweetalert.min.js"], function(tpl, core) {
+					var blurNumber = $('#blurNumber').html();
+				
+					if(parseInt(blurNumber) < 20){
+						core.tip.show("模糊度不能小于20")
+						var bar_round = document.querySelector('.c-round'); //小圆
+						var bar_num = document.querySelector('.c-bg'); //白色线
+						var sigmao = 20;
+						
+						
+						var sigma = sigmao / 100 * $('.controlbar-box').width();
+						var offwidth = $('.controlbar-box').width() - $('.c-round').width();
+						if(offwidth <= sigma){
+							sigma = offwidth;
+						}
+						bar_round.style.left = sigma + 45 + 'px';
+						bar_num.style.width = sigma + 'px';
+						bar_num.style.zIndex = '20';
+						document.querySelector('.c-progress').innerHTML = sigmao;
+						blurNumber = sigmao;
+						core.loading();
+						var data = {op:'temp',fuzzy:20,mediaid:"{$_GPC['mediaid']}",random:randomV};
+						core.json('center/index',data,function(result){
+							if(result.status == 0){
+								swal({title: "尊敬的粉丝!",
+			                      text: result.result,
+			                      type: "warning",    
+			                      confirmButtonColor: "#DD6B55",  
+			                      confirmButtonText: "确定",   closeOnConfirm: false});
+							}else if(result.status==1){
+								var date = new Date();
+								var time = date.getMilliseconds();
+								$("#imgID").attr('src',"/addons/social_reward/attachment/temp/"+result.result+".jpg?time="+time);
+								core.removeLoading();
+							}else{
+								swal({title: "尊敬的粉丝!",
+			                      text: "系统错误，请稍后再试！",
+			                      type: "warning",    
+			                      confirmButtonColor: "#DD6B55",  
+			                      confirmButtonText: "确定",   closeOnConfirm: false});
+							}
+						});
+					}else{
+						core.loading();
+						// $("#imgID").attr('src',"/addons/social_reward/lib/phpThumb.php?src={php echo $data['originalurl']}&w=300&fltr[]=blur|"+blurNumber+"&hash=ddee74fe626cfe9097c4a07f87a7a3b3");
+						core.tip.show('正在处理，请稍后。。');
+						var data = {op:'temp',fuzzy:blurNumber,mediaid:"{$_GPC['mediaid']}",random:randomV};
+						core.json('center/index',data,function(result){
+							if(result.status == 0){
+								swal({title: "尊敬的粉丝!",
+			                      text: result.result,
+			                      type: "warning",    
+			                      confirmButtonColor: "#DD6B55",  
+			                      confirmButtonText: "确定",   closeOnConfirm: false});
+							}else if(result.status==1){
+								var date = new Date();
+								var time = date.getMilliseconds();
+								$("#imgID").attr('src',"/addons/social_reward/attachment/temp/"+result.result+".jpg?time="+time);
+								core.removeLoading();
+							}else{
+								swal({title: "尊敬的粉丝!",
+			                      text: "系统错误，请稍后再试！",
+			                      type: "warning",    
+			                      confirmButtonColor: "#DD6B55",  
+			                      confirmButtonText: "确定",   closeOnConfirm: false});
+							}
+						});
+						
+					}
+				});
+			}
+			
+			var _bar = document.querySelector('.controlbar-box'); //父元素
+			var bar_round = document.querySelector('.c-round'); //小圆
+			var bar_num = document.querySelector('.c-bg'); //白色线
+			
+			function onblurNum(dom,style){
+				var mininputNumber = $('#mininputNumber').val().replace(/\.$/g, "");
+				var inputNumber = $('#inputNumber').val().replace(/\.$/g, "");
+				$('#lableNumber').html(inputNumber);
+				$('#minlableNumber').html(mininputNumber);
+	
+				if(!mininputNumber){
+					$('#mininputNumber').val(1);
+					$('#minlableNumber').html(1);
+				}
+				
+				if(!inputNumber){
+					$('#inputNumber').val(1);
+					$('#lableNumber').html(1);
+				}
+				if(!$('#suijiSelect').hasClass('bg_dui')){
+					return false;
+				}
+				if(style == 1){					
+					if(parseFloat(mininputNumber) > parseFloat(inputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}else{					
+					if(parseFloat(inputNumber) < parseFloat(mininputNumber)){
+						$('#inputNumber').val(mininputNumber);
+						$('#lableNumber').html(mininputNumber);
+					}
+				}
+			}
+			
+			function inputNumberF(dom,style) {
+				if(style == 1){
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#minlableNumber').html(99);						
+						}else{
+							$('#minlableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#minlableNumber').html(0);
+					}	
+				}else{
+					dom.value =dom.value.replace(/[^\d.]/g, "").replace(/^\./g, "").replace(/\.{2,}/g, ".").replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+					if(dom.value){
+						if(dom.value > 99){
+							dom.value = 99;
+							$('#lableNumber').html(99);						
+						}else{
+							$('#lableNumber').html(dom.value);
+						}					
+					}else{
+	//					dom.value = 0;
+						$('#lableNumber').html(0);
+					}	
+				}
+							
+			}
+			$(function() {				
+				mark();	
+				function mark() {
+					var mark_body = document.querySelector('.mark_body');
+					//圆宽度的一半
+					var x = parseInt(bar_round.offsetWidth) / 2;
+					var max_w = _bar.offsetWidth - x; //在没有offset().left时的最大x坐标
+					var bar_offsetLeft = $('.controlbar-box').offset().left + 45; //元素和左窗体的距离:用不到e.pageY和.offset()top
+					function drags(event) {
+						var _pagex = event.touches[0].pageX; //得到指针x轴坐标
+						
+						//判断e.pageX 
+						if (_pagex < bar_offsetLeft + x) { //最左边	：_pagex最小时
+							_pagex = bar_offsetLeft;
+						} else if (_pagex > max_w + bar_offsetLeft) { //最右边：_pagex最大时
+							_pagex = max_w + bar_offsetLeft - x;
+						} else {
+							_pagex = _pagex - x;
+						}
+						//小圆定位
+						bar_round.style.left = (_pagex - bar_offsetLeft+45) + 'px';
+						bar_num.style.width = (_pagex - bar_offsetLeft) + 'px';
+						bar_num.style.zIndex = '20';
+						//得到数值%
+						var ratio = Math.abs(_pagex - bar_offsetLeft) / (max_w - x);
+						document.querySelector('.c-progress').innerHTML = Math.ceil(ratio * 100);
+
+					}
+					//元素按下事件	
+					_bar.addEventListener('touchstart', bar_down, false);
+
+					function bar_down() {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+					}
+					_bar.addEventListener('touchmove', touchmove, false);
+
+					function touchmove(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						drags(event);
+					}
+					//document按下弹起事件
+					_bar.addEventListener('touchend', function(event) {
+						event.preventDefault(); //阻止元素的默认事件
+						event.stopPropagation(); // 阻止元素冒泡事件
+						document.removeEventListener('touchmove', touchmove, false);
+						setBlur();
+					}, false);
+				}
+			});
+		</script>
+{/if}
+{template 'common/footer_base'}

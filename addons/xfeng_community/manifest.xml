@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.dede168.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[智慧小区]]></name>
+		<identifie><![CDATA[xfeng_community]]></identifie>
+		<version><![CDATA[9.3.6]]></version>
+		<type><![CDATA[biz]]></type>
+		<ability><![CDATA[智慧小区]]></ability>
+		<description><![CDATA[中国领先的微小区开发服务商,掌握最新物业盈利模式，提升物业管理能力]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[www.dede168.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<menu call="getMenuTiles">
+		      <entry title="管理中心" do="manage" state="" direct="false" />
+			  <entry title="数据优化" do="system" state="" direct="false" />
+		</menu>
+		<cover>
+		      <entry title="首页入口设置" do="home" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]>
+</install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS ims_xcommunity_activity;
+DROP TABLE IF EXISTS ims_xcommunity_admap;
+DROP TABLE IF EXISTS ims_xcommunity_alipayment ;
+DROP TABLE IF EXISTS ims_xcommunity_announcement;
+DROP TABLE IF EXISTS ims_xcommunity_business;
+DROP TABLE IF EXISTS ims_xcommunity_carpool;
+DROP TABLE IF EXISTS ims_xcommunity_cart;
+DROP TABLE IF EXISTS ims_xcommunity_cash_order;
+DROP TABLE IF EXISTS ims_xcommunity_category;
+DROP TABLE IF EXISTS ims_xcommunity_cost;
+DROP TABLE IF EXISTS ims_xcommunity_cost_list;
+DROP TABLE IF EXISTS ims_xcommunity_dp;
+DROP TABLE IF EXISTS ims_xcommunity_fled;
+DROP TABLE IF EXISTS ims_xcommunity_goods;
+DROP TABLE IF EXISTS ims_xcommunity_homemaking;
+DROP TABLE IF EXISTS ims_xcommunity_houselease;
+DROP TABLE IF EXISTS ims_xcommunity_images;
+DROP TABLE IF EXISTS ims_xcommunity_member;
+DROP TABLE IF EXISTS ims_xcommunity_menu;
+DROP TABLE IF EXISTS ims_xcommunity_nav;
+DROP TABLE IF EXISTS ims_xcommunity_navextension;
+DROP TABLE IF EXISTS ims_xcommunity_notice_setting;
+DROP TABLE IF EXISTS ims_xcommunity_order;
+DROP TABLE IF EXISTS ims_xcommunity_order_goods;
+DROP TABLE IF EXISTS ims_xcommunity_pay;
+DROP TABLE IF EXISTS ims_xcommunity_payment;
+DROP TABLE IF EXISTS ims_xcommunity_phone;
+DROP TABLE IF EXISTS ims_xcommunity_print;
+DROP TABLE IF EXISTS ims_xcommunity_property;
+DROP TABLE IF EXISTS ims_xcommunity_propertyfree;
+DROP TABLE IF EXISTS ims_xcommunity_protime;
+DROP TABLE IF EXISTS ims_xcommunity_reading_member;
+DROP TABLE IF EXISTS ims_xcommunity_region;
+DROP TABLE IF EXISTS ims_xcommunity_reply;
+DROP TABLE IF EXISTS ims_xcommunity_report;
+DROP TABLE IF EXISTS ims_xcommunity_res;
+DROP TABLE IF EXISTS ims_xcommunity_room;
+DROP TABLE IF EXISTS ims_xcommunity_service;
+DROP TABLE IF EXISTS ims_xcommunity_servicecategory;
+DROP TABLE IF EXISTS ims_xcommunity_set;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_address;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_cart;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_category;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_dispatch;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_express;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_feedback;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_goods;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_goods_option;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_goods_param;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_order;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_order_goods;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_print;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_product;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_set;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_slide;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_spec;
+DROP TABLE IF EXISTS ims_xcommunity_shopping_spec_item;
+DROP TABLE IF EXISTS ims_xcommunity_sjdp;
+DROP TABLE IF EXISTS ims_xcommunity_sjdp_goods;
+DROP TABLE IF EXISTS ims_xcommunity_sjdp_member;
+DROP TABLE IF EXISTS ims_xcommunity_slide;
+DROP TABLE IF EXISTS ims_xcommunity_template;
+DROP TABLE IF EXISTS ims_xcommunity_users;
+DROP TABLE IF EXISTS ims_xcommunity_users_group;
+DROP TABLE IF EXISTS ims_xcommunity_wechat_notice;
+DROP TABLE IF EXISTS ims_xcommunity_wechat_smsid;
+DROP TABLE IF EXISTS ims_xcommunity_wechat_tplid;
+DROP TABLE IF EXISTS ims_xfcommunity_images;
+
+    ]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

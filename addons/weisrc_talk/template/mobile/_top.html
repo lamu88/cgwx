@@ -1,0 +1,6 @@
+{if $config['ad_image']}
+<div class="pageTopBox">
+    <div class="bg"><a href="{if $config['ad_url']}{$config['ad_url']}{else}#{/if}"><img src="{php echo tomedia($config['ad_image']);}"/></a></div>
+    <div class="title"><img src="{RES}/themes/images/iconTa.png"/>{$config['ad_title']}</div>
+</div>
+{/if}

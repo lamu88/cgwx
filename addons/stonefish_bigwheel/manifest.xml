@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.dede168.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[幸运大转盘]]></name>
+		<identifie><![CDATA[stonefish_bigwheel]]></identifie>
+		<version><![CDATA[4.8.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[幸运大转盘营销抽奖]]></ability>
+		<description><![CDATA[幸运大转盘营销抽奖-结合商家网点模块，每个商家可送抽奖机会,分享还可以额外获得抽奖机会哟]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="列表入口" do="listentry" state="" direct="false" />
+			
+		</cover>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+			<entry title="活动模板" do="template" state="" direct="false" />
+			<entry title="消息模板" do="tmplmsg" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

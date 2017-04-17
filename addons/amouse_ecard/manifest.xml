@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.dede168.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[智慧微名片]]></name>
+		<identifie><![CDATA[amouse_ecard]]></identifie>
+		<version><![CDATA[2.2.8]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[千叶微名片，这不是简单的微名片。]]></ability>
+		<description><![CDATA[千叶微名片，这不是简单的微名片，帮你快速结交朋友，建立人脉。生成一个名片二维码，扫描二维码可以保存到手机联系人中。]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[www.dede168.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="我的名片首页" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="基本设置" do="sysset" state="" direct="false" />
+			<entry title="名片管理" do="ecard" state="" direct="false" />
+			<entry title="背景图片" do="bg" state="" direct="false" />
+			<entry title="行业管理" do="industry" state="" direct="false" />
+			<entry title="音乐管理" do="music" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

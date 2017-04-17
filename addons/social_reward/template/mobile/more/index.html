@@ -1,0 +1,158 @@
+{template 'common/header'}
+<style type="text/css">
+body {margin:0px; background:#eee; font-family:'微软雅黑'; -moz-appearance:none;}
+a {text-decoration:none;}
+.order_top {height:44px; width:100%;  background:#f8f8f8;  border-bottom:1px solid #e3e3e3;}
+.order_top .title {height:44px; width:auto;margin-left:10px; float:left; font-size:16px; line-height:44px; color:#666;}
+.order_top .num { float:right;color:#666;height:44px;line-height:44px;padding-right:5px;}
+.order_top .num a{
+    color: #cc3431;
+    font-size: 12px;
+} 
+.order_menu {height:44px; background:#fff;}
+.order_menu .nav {height:44px; width:33%; border-bottom:1px solid #f1f1f1;background:#fff; border-left:1px solid #f1f1f1; float:left; line-height:44px; font-size:14px; color:#666; text-align:center;}
+.order_menu .navon {height:42px; color:#ff771b; border-bottom:2px solid #ff771b;}
+
+.order_title {height:40px; padding:5px; line-height:50px; font-size:16px; color:#666;}
+.order_no {height:100px; width:100%; margin:50px 0px 60px; color:#ccc; font-size:12px; text-align:center;}
+.order_list {height:153px; padding:10px; background:#fff;margin-top:5px;}
+.order_list .left {height:40px; float:left; color:#999;font-size:14px;}
+.order_list .left span {color:#666; font-size:14px; line-height:28px;}
+.order_list .right {width:75%; float:right; font-size:14px; line-height:18px; margin-left:10px;}
+.order_list .right span {color:#f90;}
+.order_list .right .right-bottom div{
+    float: right;
+    margin-left: 5px;
+}
+.right .right-middle{
+    position: relative;
+    width: 120px;
+}
+.right-bottom .keng>i,.right-bottom .zan>i{
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background-image: url(/addons/social_reward/static/images/zang.png);
+    background-size: 100% 100%;
+}
+.right-bottom .zan>i.active{
+    background-image: url(/addons/social_reward/static/images/zang_h.png);
+}
+.right-bottom .keng>i{
+    background-image: url(/addons/social_reward/static/images/zang_down.png);
+}
+.right-bottom .keng>i.active{
+    background-image: url(/addons/social_reward/static/images/zang_down_h.png);
+}
+.video_icon{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-image: url(/addons/social_reward/static/player.jpg);  
+    background-size: 50px 50px;       
+    background-repeat: no-repeat;
+    background-position: center center; 
+    z-index: 99;  
+  }
+  #order_loading { width:94%;padding:10px;color:#666;text-align: center;margin:0 auto;margin-top: -20px;}
+  #recodesLeft{
+    padding-bottom: 20px;
+  }
+</style>
+<div class="order_menu">
+        <div class="nav {if empty($_GPC['order']) || $_GPC['order']=='time'}navon{/if}" data-url='{php echo $this->createMobileUrl("more",array("p"=>"index","order"=>"time"))}'>最新</div>
+        <div class="nav {if $_GPC['order']=='liked'}navon{/if}"  data-url='{php echo $this->createMobileUrl("more",array("p"=>"index","order"=>"liked"))}'>最受喜爱</div>
+        <div class="nav  {if $_GPC['order']=='reward'}navon{/if}"  data-url='{php echo $this->createMobileUrl("more",array("p"=>"index","order"=>"reward"))}'>最多收获</div>
+</div>
+{if empty($list) || count($list)<1}
+ <div class="order_no"><i class="fa fa-file-text-o" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">还没有任何相关数据:)</span></div>
+{else}
+<section id="recodesLeft" class="clearfix">
+    {loop $list $key=>$item}
+    <div class="order_list">
+        <div class="left">
+            <img src="{$item['headimgurl']}" width="40"  style="border-radius:50%">
+        </div>
+        <div class="right">
+            <div class="right-top">{$item['nickname']} {if $item['sex']==1}<i class="fa fa-mars" style="color: #4AC4FA;"></i>{elseif $item['sex']==2}<i class="fa fa-venus" style="color: #F94747;"></i>{else}<i class="fa fa-genderless" style="color: #F9EA47;"></i>{/if}</div>
+            <div class="right-middle">
+                <a href="{php echo $this->createMobileUrl('opus',array('mediaid'=>$item['media_id']))}"><img src="{if empty($item['scaned'])&&$item['openid']!=$_W['openid']}{$item['blururl']}{else}{$item['originalurl']}{/if}" width="120" height="100">
+                {if $item['type']=='shortvideo'}
+                <div class="video_icon"></div>
+                {/if}
+                </a>
+            </div>
+            <div class="right-bottom">
+                <div class="keng"><i></i>踩({php echo intval($item['unlikednum'])})</div>
+                <div class="zan"><i></i>赞({php echo intval($item['likednum'])})</div>
+                <div><i></i>浏览({php echo intval($item['scantime'])})</div>
+            </div>
+        </div>
+     </div>
+    {/loop}
+</section>
+{/if}
+<script type="text/javascript">
+    $(".nav").click(function(){
+        window.location.href = $(this).data('url');
+    });
+</script>
+<script type="text/javascript">
+    var showcount = {$showcount};
+    var cpage = {$pindex};
+      //获取滚动条当前的位置 
+      function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+          scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+          scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+      }
+      //获取当前可是范围的高度 
+      function getClientHeight() {
+        var clientHeight = 0;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+          clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        } else {
+          clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+      }
+      //获取文档完整的高度 
+      function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      }
+      window.onscroll = function() {          
+        if (getScrollTop() + getClientHeight() == getScrollHeight()) {
+          
+          var totalcount = {$total};
+          if(showcount >= totalcount){
+            var ele = $("#order_loading");
+            if(ele.length < 1){
+              $("#recodesLeft").after("<div id='order_loading'>已经加载全部作品</div>");
+            }
+          }else{
+            $("#recodesLeft").after("<div id='order_loading'><i class='fa fa-spinner fa-spin'></i>正在加载。。。</div>");
+            
+            cpage = cpage + 1;
+            var data = {page:cpage}
+            $.post("{php echo $this->createMobileUrl('more')}",data,function(tpl){
+              $("#recodesLeft").append(tpl);
+              $("#order_loading").remove();
+            });
+            
+          }
+        }
+      } 
+</script>
+{template 'common/footer_base'}

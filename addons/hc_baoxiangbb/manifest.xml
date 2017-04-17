@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[中秋博饼包厢版]]></name>
+		<identifie><![CDATA[hc_baoxiangbb]]></identifie>
+		<version><![CDATA[1.9.7]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[中秋博饼包厢版]]></ability>
+		<description><![CDATA[中秋博饼包厢版]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+    <cover>
+
+    </cover>
+		<menu>
+	<entry title="查看排行榜" do="rankview" state="" direct="false" />
+	<entry title="兑换商品管理" do="exchange" state="" direct="false" />
+	<entry title="兑换请求管理" do="order" state="" direct="false" />
+							</menu>
+		<home call="getHomeTiles">
+		</home>
+		<profile>
+
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

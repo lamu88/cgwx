@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--android宽度自适应1:1-->
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+          name="viewport"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <title>{$title}</title>
+
+    <link rel="stylesheet" type="text/css" href="{RES}/themes/css/basic.css"/>
+    <script type="text/javascript" src="{RES}/themes/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/basic.js"></script>
+
+    <!--请写入本页中的所有CSS-->
+    <style>
+        <!--
+        /*根据用户自定义颜色确定*/
+        .pageTopBox {
+            border-bottom: 1px solid #0C9;
+        }
+        -->
+        body {
+            visibility: hidden;
+        }
+    </style>
+    <!--请写入本页中的所有的JS-->
+    <script type="text/javascript">
+        $(function () {
+            if (navigator.geolocation) {
+                window.navigator.geolocation.getCurrentPosition(showMap, function (error) {
+                    ajax_Post('0', '0');
+                }, {timeout: 7000});
+            } else {
+                ajax_Post('0', '0');
+            }
+        });
+
+        function showMap(value) {
+            var longitude = value.coords.longitude;
+            var latitude = value.coords.latitude;
+            ajax_Post(longitude, latitude);
+        }
+
+        function ajax_Post(longitude, latitude) {
+            var url = "{php echo $this->createMobileurl('setlocation', array(), true)}";
+            $.post(url, {lng: longitude, lat: latitude}, function (result) {
+                        if (result.isResultTrue) {
+                            if (result.resultMsg == 'true') {
+                                goTo('true');
+                            } else {
+                                goTo('false', result.resultMsg);
+                            }
+                        } else {
+                            goTo('false', result.resultMsg);
+                            //alert("参数错误,请重新进入");
+                        }
+                    }
+            )
+        }
+
+        function goTo(result, objmsg) {
+            if (result != 'true') {
+                if (objmsg != null && objmsg != 'false') {
+                    alert(objmsg);
+                }
+            }
+            window.location.href = "{php echo $this->createMobileurl('index', array(), true)}";
+        }
+
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var marginTop = $(window).height() / 2 - $(".mdlBox").height() / 2 - 70;
+            $(".mdlBox").css({marginTop: marginTop});
+
+            $("body").css({visibility: "visible"});
+        }
+    </script>
+</head>
+<body>
+<!--S页面顶部内容-->
+{php include $this->template('_top');}
+<!--E页面顶部内容-->
+<!--S页面中间内容-->
+<div class="pageContentBox" style="text-align: center">
+    <div class="mdlBox">
+        <img src="{RES}/themes/images/iconLocalPlace1.png" alt="" style="width: 52px;height: 52px"/><br/>
+        <span style="font-size: 14px;color:#8e8e8e;">正在确定您的位置...</span>
+    </div>
+</div>
+<!--E页面中间内容-->
+<!--S页面底部Bar内容-->
+{php include $this->template('_bar');}
+<!--E页面底部Bar内容-->
+{php echo register_jssdk(false);}
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            success: function(){
+            },
+            cancel: function(){
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[智慧图文]]></name>
+		<identifie><![CDATA[amouse_article]]></identifie>
+		<version><![CDATA[5.9.7]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[智慧图文]]></ability>
+		<description><![CDATA[智慧图文]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="精美图文入口" do="index" state="" direct="false" />
+			<entry title="微信互推入口" do="tuijian" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="文章分类" do="category" state="" direct="false" />
+			<entry title="文章管理" do="paper" state="" direct="false" />
+			<entry title="随机广告管理" do="adv" state="" direct="false" />
+			<entry title="幻灯片管理" do="slide" state="" direct="false" />
+			<entry title="一键关注管理" do="hutui" state="" direct="false" />
+			<entry title="设置" do="sysset" state="" direct="false" />
+			<entry title="教程" do="jiaocheng" state="" direct="false" />
+			<entry title="文章评论管理" do="comment" state="" direct="false" />
+		</menu>
+		<home>
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

@@ -1,0 +1,175 @@
+{php include wl_template('common/header');}
+<script src="{TG_URL_WRES}js/jquery-ui-1.10.3.min.js"></script>
+<div class="panel panel-info">
+	<div class="panel-heading">添加抽奖团</div>
+	<div class="panel-body">
+		<form action="" method="post" class="form-horizontal">
+			{if empty($lottery)}
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">选择商品</label>
+				 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-8">
+					<select name="goods[goodsid]" class="form-control select" id="test" onchange="selectChange();">
+						{loop $data['list'] $row}
+				            <option value="{$row['id']}"  >{$row['gname']}</option>
+						{/loop}
+			        </select>
+				</div>
+			</div>
+			<div class="panel panel-default" id="show" style="display: none;">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th style="width:80px;">商品图</th>
+							<th style="width:180px;">商品名</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr data-toggle="popover" data-trigger="hover" data-placement="left" class="js-goods-img">
+							<td><img class="scrollLoading2" id="img"  src=""  height="50" width="50"/></td>
+							<td class="line-feed" id="gname">
+								{php echo cutstr($goods['gname'], 30, true);}
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{else}
+			<div class="panel panel-default">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th style="width:80px;">商品图</th>
+							<th style="width:180px;">商品名</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr data-toggle="popover" data-trigger="hover" data-placement="left" class="js-goods-img">
+							<td><img class="scrollLoading" src="{IMAGE_PIXEL}" data-url="{php echo tomedia($goods['gimg'])}" onerror="this.src='{IMAGE_NOPIC_SMALL}'" height="50" width="50"/></td>
+							<td class="line-feed">
+								{php echo cutstr($goods['gname'], 30, true);}
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<script>
+			
+			$(function(){
+					$(".scrollLoading").scrollLoading();
+					var $pop = null;
+					$('.scrollLoading').hover(function(){
+						var img = $(this).attr('src');
+						var obj = this;
+						var $pop = util.popover(obj, function($popover, obj){
+							obj.$popover = $popover;
+						}, '<div><img src="'+img+'" style="max-width:200px; max-height:200px;"></div>');
+					}, function(){
+						this.$popover.remove();
+					});
+				});
+			</script>
+			{/if}
+			<!--<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
+				<div class="col-xs-12 col-sm-8">
+					<label class="radio radio-inline">
+						<input type="radio" name="goods[status]" value="1" {if intval($goods['status']) ==1 }checked="checked"{/if}> 不开启
+					</label>
+					<label class="radio radio-inline">
+						<input type="radio" name="goods[status]" value="2" {if intval($goods['status']) ==2 || empty($goods['group_level_status'])}checked="checked"{/if}> 开启
+					</label>
+					<div class="col-sm-9 col-xs-12">
+					<span class="help-block">(启用阶梯团后，商品规格将失效，商品的价格及库存以阶梯团为准)</span>
+				</div>
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">活动名称</label>
+				<div class="col-md-6">
+					<input type="text" name="goods[name]" id="name" class="form-control" value="{$lottery['name']}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">一等奖人数</label>
+				<div class="col-md-4">
+				<div class="input-group">
+					<input type="text" name="goods[first_num]" class="form-control" value="{$lottery['first_num']}" />
+					<span class="input-group-addon">人</span>
+				</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">二等奖人数</label>
+				<div class="col-md-4">
+				<div class="input-group">
+					<input type="text" name="goods[second_num]" class="form-control" value="{$lottery['second_num']}" />
+					<span class="input-group-addon">人</span>
+				</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">三等奖人数</label>
+				<div class="col-md-4">
+				<div class="input-group">
+					<input type="text" name="goods[third_num]" class="form-control" value="{$lottery['third_num']}" />
+					<span class="input-group-addon">人</span>
+				</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">参与奖人数</label>
+				<div class="col-md-4">
+				<div class="input-group">
+					<input type="text" name="goods[forth_num]" class="form-control" value="{$lottery['forth_num']}" />
+					<span class="input-group-addon">人</span>
+				</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="hidden" name="id" value="{$lottery['id']}" />
+				<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</form>
+	</div>
+</div>
+<script language="javascript">
+	$(function(){
+		$("#param-items-level").sortable({handle:'.fa-move'});
+		$("#chkoption").click(function(){
+			var obj =$(this);
+			if(obj.get(0).checked){
+				$("#tboption").show();
+				$(".trp").hide();
+			}
+			else{
+				$("#tboption").hide();
+				$(".trp").show();
+			}
+		});
+	})
+	function selectChange(){
+		var s = document.getElementById("test");
+        var v = s.options[s.selectedIndex].value;
+        var ajaxurl = "{php echo web_url('application/ladder/ajax')}";
+        $.ajax({
+				type: "POST",
+				url: ajaxurl,
+				data:{id:v},
+				dataType: 'json',
+				beforeSend: function(XMLHttpRequest) {},
+				success: function(data) {
+					$('#show').show();
+					$('#img').attr("src",data.gimg);
+					$('#gname').html(data.gname);
+					
+				},
+				error:function(){alert("商品信息错误!");}
+			});
+	} 
+</script>
+{php include wl_template('common/footer');}

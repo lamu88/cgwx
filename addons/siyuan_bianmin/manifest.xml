@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[码上便民服务]]></name>
+		<identifie><![CDATA[siyuan_bianmin]]></identifie>
+		<version><![CDATA[2.3.8]]></version>
+		<type><![CDATA[biz]]></type>
+		<ability><![CDATA[码上便民服务 ]]></ability>
+		<description><![CDATA[码上便民服务 ]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="幻灯片广告" do="flash" state="" direct="false" />
+			<entry title="分类管理" do="fenlei" state="" direct="false" />
+			<entry title="商家列表" do="news" state="" direct="false" />
+			<entry title="系统设置" do="set" state="" direct="false" />
+
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

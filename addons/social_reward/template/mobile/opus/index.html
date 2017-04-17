@@ -1,0 +1,768 @@
+{template 'common/header'}
+
+<style type="text/css">
+	body{
+		margin:0px;
+		width: 100%;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="/addons/social_reward/static/js/dist/sweetalert/sweetalert.css">
+{if !$enable || $data['status'] == -1}
+<script type="text/javascript">
+	require(['core'], function(core) {
+		core.message("该作品不存在或者因涉嫌违规被管理员屏蔽","{php echo $this->createMobileUrl('more')}",'error');
+	});
+</script>
+{else}
+	<link rel="stylesheet" type="text/css" href="/addons/social_reward/template/mobile/center/css/app.css">
+		<script type="text/javascript">
+			 //图片居中显示  
+			 function center_img(dom) {
+				dom.style.visibility = 'hidden';
+				var winHeight = document.documentElement.clientHeight;
+				var winWidth = document.documentElement.clientWidth;
+				if ((dom.height) < winHeight) {
+					var H = (winHeight - dom.height) / 2;
+					dom.style.marginTop = H + 'px';
+				} else {
+					dom.style.marginTop = '0px';
+				}
+				if (dom.width < winWidth) {
+					var W = (winWidth - dom.width) / 2;
+					dom.style.marginLeft = W + 'px';
+				} else {
+					dom.style.marginLeft = '0px';
+				}
+				dom.style.visibility = 'visible';
+			}
+			 //图片居中显示  
+			function center_img_original(dom) {
+				
+				dom.style.visibility = 'hidden';
+				
+				var pWideth = document.documentElement.clientWidth;
+				var pHeight = document.documentElement.clientHeight;
+				var Wideth = dom.width;
+				var Height = dom.height;
+				
+				if(Wideth >=　pWideth){
+					dom.width = pWideth;				
+				}else{
+					dom.style.marginLeft = (pWideth - dom.width) / 2 + 'px';				
+				}
+				if(parseInt(dom.height) >= parseInt(pHeight)){	
+					dom.style.marginTop = '0px';
+				}else{
+					dom.style.marginTop = (pHeight - dom.height) / 2 + 'px';
+				}
+				$('#bgLodind').css('display','none');
+				dom.style.visibility = 'visible';
+
+			}
+							//已支付后数据函数
+				function alreadyPay(url){
+					$('#photoPay').css('display','none');									       
+					$('#original_photo').css('display','block');
+					
+					
+					$('#imgID').attr('src',url);
+					//头像昵称性别
+					$('#original_photo #nicknameImg').attr('src',"{$data['headimgurl']}");
+					$('#original_photo #nickname').html("{$data['nickname']}");
+									
+					if("{$reward['liked']}" == 1){
+						$('#likeText').html('已赞');
+						$("#likeIcon").addClass('active');
+					}
+					if("{$reward['unliked']}" == 1){
+						$('#kengText').html('已踩');
+						$("#kengIcon").addClass('active');
+					}
+					if("{$reward['complain']}" == 1){
+						$('#jubaoText').html('已投诉');
+					}
+				}		
+		</script>
+		<style type="text/css">
+			html,
+			body {
+				background-color: #000;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+			}		
+			.blur {	
+			    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+			    
+			    -webkit-filter: blur(10px); /* Chrome, Opera */
+			       -moz-filter: blur(10px);
+			        -ms-filter: blur(10px);    
+			            filter: blur(10px);
+			    
+			    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+			}	
+			.imgs img {		
+				width: 100%;		
+				/*filter: 0.5;*/
+				visibility: hidden;
+			}
+			.reward_container{
+				position: fixed;
+				_position: absolute;
+				left: 50%;
+				top: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				width: 300px;
+				height: auto;
+				background-color: #d04f3b;
+				background: -webkit-linear-gradient(#d04f3b 0%,   #db7242 100%);
+				background: -moz-linear-gradient(#d04f3b 0%,   #db7242 100%);
+				background: linear-gradient(#d04f3b 0%,   #db7242 100%);
+				border-radius: 7px;		
+				overflow: hidden;		
+				z-index: 999;
+				display: none;
+				padding-bottom: 20px;
+			}
+			.reward_head{
+				position: relative;
+			}
+			.reward_head i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 50px;
+				height: 50px;
+				background-image: url(/addons/social_reward/static/images/reward_close.png);
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			
+			.money_container{
+				margin: 0px 0 10px;
+				text-align: center;
+			}
+			.money_container span:first-child{
+				display: inline-block;
+				height: 60px;
+				line-height: 60px;
+				font-size: 50px;
+				font-weight: 700;
+				color: #f7dbba;
+			}
+			.money_container span:nth-of-type(2){
+				color: #f7dbba;
+				font-size: 12px;
+			}
+			.btns{
+				text-align: center;
+				color: #f7dbba;
+			}
+			
+			.btn{
+				width: 80%;
+				height: 40px;
+				/*line-height: 40px;*/
+				margin: 10px auto 20px;
+				text-align: center;
+				border-radius: 7px;
+				background-color: #EEECBB;
+				color: #FB3243;
+				font-weight: 700;				
+			}
+			.btn>i{
+				display: inline-block;
+				vertical-align: middle;
+				margin-right: 3px;
+				width: 20px;
+				height: 40px;
+				background-image: url(/addons/social_reward/static/images/reward_rb.png);
+				background-size: 20px 20px;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.btn>span{
+				display: inline-block;
+				height: 40px;
+				line-height: 40px;
+				vertical-align: middle;
+				color: #c33924;
+			}
+			.foot{
+				text-align: center;				
+			}
+			.foot a{
+				color: #ffeda5;
+				/*padding: 10px;*/
+				border: 1px solid #ffeda5;
+				width: 80%;
+				height: 40px;
+				line-height: 40px;
+				border-radius: 7px;
+			}
+			.footText{
+				margin-top: 20px;
+			}
+			.footText>span{				
+				border: 2px solid #ffbc4a;
+				border-radius: 5px;
+				padding: 10px 15px;
+				color: #ffbc4a;
+				font-weight: 700;
+				font-size: 16px;
+			}
+			.top_nickName{
+				position: fixed;
+				left: 0;
+				top: 0px;
+				padding: 10px 0;
+				width: 100%;
+				text-align: center;
+				background-color: rgba(0,0,0,0.5);
+			}
+			.top_nickName>img{
+				display: inline-block;
+				vertical-align: middle;
+				width: 40px;
+				height: 40px;				
+			}
+			.top_nickName>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-size: 100% 100%;
+			}
+
+			.top_nickName>span{
+				display: inline-block;
+				vertical-align: middle;
+				color: #fff;
+			}
+			.middleText{
+				position: fixed;
+				left: 0;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				-ms-transform: translateY(-50%);
+				-o-transform: translateY(-50%);
+				transform: translateY(-50%);
+				width: 100%;
+				text-align: center;
+				display: none;
+			}
+			.middleText>span{
+				color: #f1e09c;
+			}
+			.middleText>i{
+				display: inline-block;
+				width: 90px;
+				height: 90px;
+				border-radius: 100%;
+				background-color: #1a1e1d;
+				background-image: url(/addons/social_reward/static/player.png);
+				background-size: 40px 40px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin-top: 15px;
+			}
+			.bgLodind{
+				position: fixed;
+				_position: absolute;
+				left: 50%;
+				top: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				width: 30px;
+				height: 30px;
+				background-image: url(/addons/social_reward/template/mobile/center/image/loading1.gif);
+				background-size: 100% 100%;
+				z-index: 99999;
+			}
+			.textTip{
+				position: fixed;
+				_position: absolute;
+				left: 50%;
+				top: 50%;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				background-color: #fff;
+				padding: 10px;
+				min-width: 230px;
+				border-radius: 5px;
+				text-align: center;
+				display:  none;
+			}
+			.footer_btns{
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				background-color: rgba(0,0,0,0.5);						
+			}
+			.footer_btns>div{
+				width: 33.3%;
+				padding: 10px 0;
+				float: left;
+				text-align: center;
+			}
+			.footer_btns>div>span,.footer_btns>div>span>label{
+				color: #fff;		
+			}
+			.footer_btns>div>span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.footer_btns_zan>i,.footer_btns_keng>i{
+				display: inline-block;
+				vertical-align: middle;
+				width: 20px;
+				height: 20px;
+				background-image: url(/addons/social_reward/static/images/zang.png);
+				background-size: 100% 100%;
+			}
+			.footer_btns_zan>i.active{
+				background-image: url(/addons/social_reward/static/images/zang_h.png);
+			}
+			.footer_btns_keng>i{
+				background-image: url(/addons/social_reward/static/images/zang_down.png);
+			}
+			.footer_btns_keng>i.active{
+				background-image: url(/addons/social_reward/static/images/zang_down_h.png);
+			}
+			/*看原图样式*/
+			.imgContainer{
+				width: 100%;
+				height: 100%;
+				overflow-x: hidden;
+				overflow-y: scroll;		
+				position: relative;		
+			}
+			.imgContainer img{
+				display: block;
+				visibility:hidden;
+			}
+			.shenhe{
+				position: absolute;
+				left: 50%;
+				top: 43%;
+				border-radius: 5px;
+				padding: 10px 20px;
+				background-color: #fff;
+				color: #000;
+				text-align: center;
+				-webkit-transform: translateX(-50%) translateY(-50%);
+				-moz-transform: translateX(-50%) translateY(-50%);
+				-ms-transform: translateX(-50%) translateY(-50%);
+				-o-transform: translateX(-50%) translateY(-50%);
+				transform: translateX(-50%) translateY(-50%);
+				z-index: 99;
+				display: none;
+			}
+			/*底部*/			
+			.footer {
+				width: 100%;
+				position: fixed;
+				left: 0;
+				bottom: 0px;
+				background-color: rgba(51,51,51,0.6);
+				/*display: none;*/
+			}
+			.footer ul {
+				width: 100%;
+				
+			}
+			.footer ul li {
+				padding-top: 5px;
+				padding-bottom: 5px;
+				display: inline-block;
+				height: 50px;
+				width: 33.3%;
+				line-height: 12px;
+				text-align: center;
+				float: left;
+				font-size: 12px;
+				color: #fff;
+			}
+			.footer ul li i {
+				display: inline-block;				
+				margin-bottom: 5px;	
+				background-position:center;
+				background-repeat: no-repeat;	
+				width: 20px;
+				height: 20px;
+				background-size: 100% 100%;			
+			}
+			.footer ul li span{
+				color: #fff;
+			}
+			.love i{
+				background-image: url(/addons/social_reward/static/images/zang.png);
+				background-size: 100% 100%;				
+			}
+			.love .active {
+				background-image: url(/addons/social_reward/static/images/zang_h.png);
+			}
+			.keng i{
+				background-image: url(/addons/social_reward/static/images/zang_down.png);		
+			}
+			.keng .active {
+				background-image: url(/addons/social_reward/static/images/zang_down_h.png);
+			}
+
+			.footer ul li .jubao{
+				background-image: url(/addons/social_reward/static/images/jubao1.png);		
+			}
+			
+			.footer ul li.active {
+				background-color: #000;
+			}	
+			.footerTip{
+				width: 100%;
+				position: fixed;
+				left: 0;
+				bottom: 50px;
+				background-color: rgba(51,51,51,0.6);
+				padding: 5px;
+				text-align: center;
+				color: #ffbc4a;
+				font-size: 16px;
+			}
+			.heaerTip{
+				position: absolute;
+				top: 0px;
+				left: 0;
+				width: 100%;
+				text-align: center;
+				color: #f00;
+				padding: 0px 10px;
+				display: none;
+				z-index: 99;
+			}
+			#photoPay{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 999;
+				display: none;
+				background-color: #000;
+			}
+			#original_photo{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 99;
+				display: none;
+				background-color: #000;
+			}
+			#nicknameImg{
+				border-radius: 50%;
+			}
+			.icon_container{
+				position: absolute;
+		        left: 50%;
+		        top: 50%;
+		        width: 60px;
+		        height: 60px;
+		        -webkit-transform: translateX(-50%) translateY(-50%);
+		        -moz-transform: translateX(-50%) translateY(-50%);
+		        -ms-transform: translateX(-50%) translateY(-50%);
+		        -o-transform: translateX(-50%) translateY(-50%);
+		        transform: translateX(-50%) translateY(-50%);
+		        background-image: url('/addons/social_reward/static/player.jpg');  
+		        background-size: 50px 50px;       
+		        background-repeat: no-repeat;
+		        background-position: center center; 
+		        z-index: 9999;
+			}
+		</style>
+		<!--未支付-->
+		<div class="bgLodind" id="bgLodind"></div>		
+		<div id="photoPay"> 
+			
+			<div class="imgs">
+				<img id="img" onload="center_img(this);" src="">
+			</div>
+			<div class="top_nickName">
+				<span>该内容由&nbsp;</span>
+				<img id="nicknameImg" src="">
+
+				<span id="nickname"></span>
+				{if $data['sex']==1}<i class="fa fa-mars" style="color: #4AC4FA;"></i>{elseif $data['sex']==2}<i class="fa fa-venus" style="color: #F94747;"></i>{else}<i class="fa fa-genderless" style="color: #F9EA47;"></i>发布{/if}
+			</div>
+			
+			<div class="middleText" id="middleText">
+				<div class="footText" id="footText">
+					<span>查看原图</span>
+				</div>
+			</div>
+			
+			<div class="reward_container" id="reward_container">
+				
+				<div class="btns" style="margin-top: 30px;font-size: 12px;">
+					（内容由用户发布，并非平台提供）
+				</div>
+				<div class="btn" id="dashang">
+					<i></i><span id="dashangText">查看</span>
+				</div>
+				<div class="foot">
+					<a id="share_url" href="#">我也要生成模糊图片和模糊视频</a>
+				</div>
+			</div>
+			
+			<div class="footer_btns">			
+				<div class="footer_btns_zan" onclick="alert('查看之后才能评价');">
+					<i id="likesIcon"></i>
+					<span>赞(<label id="likesNum">{$likenum}</label>)</span>
+				</div>
+				<div class="footer_btns_sao">
+					<span style="display:none">查看(<label id="scansNum"></label>)</span>
+				</div>
+				<div class="footer_btns_keng" onclick="alert('查看之后才能评价');">
+					<i id="dislikesIcon"></i>
+					<span>踩(<label id="dislikesNum">{$unlikenum}</label>)</span>
+				</div>
+			</div>
+			
+		</div>			
+		<!--end未支付-->
+		<!--已支付-->
+		<div id="original_photo">
+			<div class="imgContainer" id="imgContainer">
+				<img id="imgID" onload="center_img_original(this)" src="">
+				{if $data['type']=='shortvideo'}
+	            <a class="icon_container" href="{php echo str_replace('jpg','mp4',$data['originalurl'])}"></a>
+	            {/if}
+			</div>
+			<div class="top_nickName">
+				<span>该内容由&nbsp;</span>
+				<img id="nicknameImg" src="">
+				<span id="nickname"></span>
+				{if $data['sex']==1}<i class="fa fa-mars" style="color: #4AC4FA;"></i>{elseif $data['sex']==2}<i class="fa fa-venus" style="color: #F94747;"></i>{else}<i class="fa fa-genderless" style="color: #F9EA47;"></i>发布{/if}
+			</div>
+			<div class="footer" id="footer">
+				<ul>
+					<li class="love" onclick="check_feeling(this)">
+						<i id="likeIcon"></i>
+						<!--<br>赞(<label class="likes" style="color: #ccc;">0</label>)-->
+						<br>
+						<span id="likeText">赞</span>
+					</li>
+					<li class="keng" onclick="check_kengling(this)">
+						<i id="kengIcon"></i>
+						<br>
+						<span id="kengText">踩</span>
+					</li>
+					<li onclick="complain()">
+						<i class="jubao"></i>
+						<br>
+						<span id="jubaoText">投诉</span>
+					</li>							
+				</ul>
+				<a class="footerTip" id="share_url_original">【我也要生成模糊图片或模糊视频】</a>
+			</div>
+	
+			
+		</div>		
+		<!--end已支付-->	
+		
+		<script type="text/javascript">			
+			
+			var closeWindowFlag = false;
+			$(document).ready(function(){
+
+				$('#bgLodind').css('display','none');
+				{if $needpay=='false'}
+
+				$('#photoPay').css('display','block');									       
+					$('#original_photo').css('display','block');
+					
+//								$('#imgID').attr('src',ret.data.url);//赋值给已支付的图片
+					
+					$('#reward_container').css('display','block');
+					$('#middleText').css('display','block');	
+					$('#img').attr('src',"{$data['blururl']}");
+					
+					$('#dashang').attr('data-own',1);
+					
+					// var yestoday = ret.yestoday;
+					$('#amount').html("{$award_total}");
+					$('#count_income').html("{$award_num}");
+					
+					//头像昵称性别
+					$('#photoPay #nicknameImg').attr('src',"{$data['headimgurl']}");
+					$('#photoPay #nickname').html("{$data['nickname']}");
+
+					
+					//总赞数
+					likes = {$likenum};
+					if(likes > 0){
+						$('#likesIcon').addClass('active');								
+					}
+					$('#likesNum').html(likes);
+					
+					//总坑数
+					dislikes = {$unlikenum};
+					$('#dislikesNum').html(dislikes);
+					$('#scansNum').html({$scansNum});
+					
+					
+				{else}
+				//头像昵称性别
+				$('#original_photo #nicknameImg').attr('src',"{$data['headimgurl']}");
+				$('#original_photo #nickname').html("{$data['nickname']}");
+
+				
+				//总赞数
+				likes = {$likenum};
+				if(likes > 0){
+					$('#likesIcon').addClass('active');								
+				}
+				$('#likesNum').html(likes);
+				
+				//总踩数
+				dislikes = {$unlikenum};
+				$('#dislikesNum').html(dislikes);
+				$('#scansNum').html({$scansNum});
+				alreadyPay("{$data['originalurl']}");
+				{/if}	
+								
+			});
+			$(function(){
+				//点击我也要生成
+				$("#share_url_original").click(function(){
+					require(["/addons/social_reward/static/js/dist/sweetalert/sweetalert.min.js"], function() {
+						sweetAlert({title:"",text: "请扫描后进入公众号主页进行发送图片或视频<br>{if $cfg['followqr']}<img src='/attachment/{$cfg['followqr']}' width='100'>{elseif file_exists(IA_ROOT.'/attachment/qrcode_'.$_W['acid'].'.jpg')}<img src='/attachment/qrcode_{$_W['acid']}.jpg' width='100'>{/if}",
+			              confirmButtonColor: "#DD6B55",  
+			              confirmButtonText: "确定",html:true},function(){
+			              }
+			            );
+					});
+				});	
+				$("#share_url").click(function(){
+					require(["/addons/social_reward/static/js/dist/sweetalert/sweetalert.min.js"], function() {
+						sweetAlert({title:"",text: "请扫描后进入公众号主页进行发送图片或视频<br>{if $cfg['followqr']}<img src='/attachment/{$cfg['followqr']}' width='100'>{elseif file_exists(IA_ROOT.'/attachment/qrcode_'.$_W['acid'].'.jpg')}<img src='/attachment/qrcode_{$_W['acid']}.jpg' width='100'>{/if}",
+			              confirmButtonColor: "#DD6B55",  
+			              confirmButtonText: "确定",html:true},function(){
+			              }
+			            );
+					});
+				});					
+				//点击打赏
+				$('#dashang').click(function(){	
+
+					if({$data['status']} == 0){
+						require(['core','tpl'], function(core,tpl) {
+							core.tip.show("该内容尚未被审核，在该作品审核通过后再来查看");
+						});
+						return;
+					}
+					var money = $('#money').html();
+					require(['core','tpl',"/addons/social_reward/static/js/dist/sweetalert/sweetalert.min.js"], function(core,tpl) {
+						if({$userInfo['subscribe']}==0){
+							sweetAlert({title:"",text: "请扫描后进入公众号再查看<br>{if $cfg['followqr']}<img src='/attachment/{$cfg['followqr']}' width='100'>{elseif file_exists(IA_ROOT.'/attachment/qrcode_'.$_W['acid'].'.jpg')}<img src='/attachment/qrcode_{$_W['acid']}.jpg' width='100'>{/if}",
+				              confirmButtonColor: "#DD6B55",  
+				              confirmButtonText: "确定",html:true},function(){
+				              }
+				            );
+						}else{
+							$.post("{php echo $this->createMobileUrl('opus',array('op'=>'complete','mediaid'=>$_GPC['mediaid']))}",function(result){
+								result = JSON.parse(result);
+								if(result.status == 0){
+									sweetAlert({title:"",text: result.result,
+						              confirmButtonColor: "#DD6B55",  type: "warning",
+						              confirmButtonText: "确定",html:true},function(){
+						              }
+						            );
+								}else if(result.status == 1){
+									alreadyPay(result.result);
+								}
+							});
+						}
+						
+					});
+		
+				});
+
+				//点击关闭
+				$('#closeContainer').click(function(){
+					$('#reward_container').css('display','none');
+				});
+
+				//点击打赏看视频
+				$('#footText').click(function(){
+					$('#reward_container').css('display','block');
+				});
+			
+			})
+			
+		</script>
+		<script type="text/javascript">
+			//点击赞
+		    function check_feeling(dom){
+				require(['core'],function(core){
+					core.json('opus/index',{'op':'like','mediaid':"{$_GPC['mediaid']}"},function(result){
+						if(result.status == 0){
+							core.tip.show(result.result);
+						}else{
+							if($("#likeIcon").hasClass('active')){
+					    		$("#likeIcon").removeClass('active');
+					    		$("#likeText").html("赞");
+					    	}else{
+					    		$("#likeIcon").addClass('active');
+					    		$("#likeText").html("已赞");
+					    		if($("#kengIcon").hasClass('active')){
+					    			$("#kengIcon").removeClass('active');
+					    			$("#kengText").html("踩");
+					    		}
+					    	}
+						}
+					});
+				});		    					
+		    }
+		    //点击踩
+		    function check_kengling(dom){
+		    	require(['core'],function(core){
+					core.json('opus/index',{'op':'unlike','mediaid':"{$_GPC['mediaid']}"},function(result){
+						if(result.status == 0){
+							core.tip.show(result.result);
+						}else{
+							if($("#kengIcon").hasClass('active')){
+					    		$("#kengIcon").removeClass('active');
+					    		$("#kengText").html("踩");
+					    	}else{
+					    		$("#kengIcon").addClass('active');
+					    		$("#kengText").html("已踩");
+					    		if($("#likeIcon").hasClass('active')){
+					    			$("#likeIcon").removeClass('active');
+					    			$("#likeText").html("赞");
+					    		}
+					    	}
+						}
+					});
+				});   					
+		    }
+		    //投诉
+			function complain(){
+				window.location.href = "{php echo $this->createMobileUrl('opus',array('p'=>'complain','mediaid'=>$_GPC['mediaid']))}";
+	
+			}
+		
+		</script>
+{/if}
+{template 'common/footer_base'}

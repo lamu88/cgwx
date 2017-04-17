@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.dede168.com" versionCode="0.6,0.7,0.8">
+	<application setting="true">
+		<name><![CDATA[微招聘求职]]></name>
+		<identifie><![CDATA[amouse_weijob]]></identifie>
+		<version><![CDATA[1.3.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[微招聘求职]]></ability>
+		<description><![CDATA[微招聘求职]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com]]></url>
+	</application>
+		<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+<bindings>
+		<cover>
+		<entry title="招聘入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="企业管理" do="company" state="" direct="false" />
+			<entry title="招聘管理" do="employ" state="" direct="false" />
+
+		</menu>
+		<home>
+		</home>
+		 <profile>
+		   <entry title="我的简历" do="profile" state="" direct="false" />
+		  </profile>
+	</bindings>
+<permissions>
+	</permissions>
+	<install><![CDATA[
+	
+DROP TABLE IF EXISTS `ims_amouse_weijob_company`;
+CREATE TABLE `ims_amouse_weijob_company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `from_user` varchar(50) DEFAULT '' COMMENT '在微信端添加公司',
+  `title` varchar(50) NOT NULL COMMENT '公司名称',
+  `short` varchar(10) NOT NULL COMMENT '公司简称',
+  `thumb` varchar(255) NOT NULL COMMENT '公司缩略图',
+  `thumb1` varchar(255) NOT NULL COMMENT '公司缩略图',
+  `linkman` varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
+  `tel` varchar(255) NOT NULL COMMENT '固定电话',
+  `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '手机号',
+  `qq` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `email` varchar(100) NOT NULL COMMENT '简历投递邮箱',
+  `content` text NOT NULL COMMENT '公司简介',
+  `companyorder` int(11) unsigned DEFAULT '0' COMMENT '排序',
+  `province` varchar(50) NOT NULL COMMENT '省',
+  `city` varchar(50) NOT NULL COMMENT '市',
+  `dist` varchar(50) NOT NULL COMMENT '区',
+  `address` varchar(255) NOT NULL COMMENT '地址',
+  `lng` varchar(255) NOT NULL COMMENT '经度',
+  `lat` varchar(255) NOT NULL COMMENT '纬度',
+  `createtime` int(11) NOT NULL,
+  `companyid` int(11) unsigned NOT NULL COMMENT '公司id',
+  `jobname` varchar(50) NOT NULL COMMENT '岗位名称',
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '工作类型：1为全职 2为兼职 3为实习',
+  `description` text NOT NULL COMMENT '岗位描述',
+  `employorder` int(11) unsigned DEFAULT '0' COMMENT '排序',
+  `number` int(11) unsigned NOT NULL COMMENT '人数',
+  `edu` varchar(11) DEFAULT '不限' COMMENT '学历要求：不限，初中，高中，中专，大专，本科，硕士，博士',
+  `offer` int(11) NOT NULL DEFAULT '0' COMMENT '薪水 0为面议',
+  `workplace` varchar(100) NOT NULL COMMENT '工作地点',
+  `workyear` varchar(50) NOT NULL COMMENT '工作年限',
+  `endtime` int(11) NOT NULL DEFAULT '0',
+  `location_p` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `location_c` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `location_a` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `name` varchar(50) NOT NULL COMMENT '姓名',
+  `sex` int(11) NOT NULL DEFAULT '0' COMMENT '性别 0男 1女',
+  `mobile` varchar(100) NOT NULL COMMENT '联系电话',
+  `age` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '年龄',
+  `work` varchar(50) NOT NULL COMMENT '期望工作',
+  `salary` varchar(50) NOT NULL COMMENT '期望工资',
+  `addr` varchar(50) NOT NULL COMMENT '期望地点',
+  `rid` int(11) NOT NULL,
+  `major` varchar(20) NOT NULL DEFAULT '' COMMENT '专业',
+  `college` varchar(10) DEFAULT NULL COMMENT '毕业院校',
+  `home` varchar(255) DEFAULT NULL COMMENT '生源地',
+  `skill` varchar(255) DEFAULT NULL COMMENT '专业技能',
+  `self` varchar(255) NOT NULL DEFAULT '' COMMENT '自我评价',
+  `experience` varchar(255) NOT NULL DEFAULT '' COMMENT '工作经历',
+  `education` varchar(255) NOT NULL DEFAULT '' COMMENT '教育经历',
+  `job_direction` varchar(255) NOT NULL DEFAULT '' COMMENT '求职方向',
+  `jobid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '投简工作id',
+  `cvid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '简历id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_amouse_weijob_employ`;
+CREATE TABLE `ims_amouse_weijob_employ` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) unsigned NOT NULL,
+  `companyid` int(11) unsigned NOT NULL COMMENT '公司id',
+  `jobname` varchar(50) NOT NULL COMMENT '岗位名称',
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '工作类型：1为全职 2为兼职 3为实习',
+  `description` text NOT NULL COMMENT '岗位描述',
+  `employorder` int(11) unsigned DEFAULT '0' COMMENT '排序',
+  `status` int(1) NOT NULL DEFAULT '0',
+  `number` int(11) unsigned NOT NULL COMMENT '人数',
+  `edu` varchar(11) DEFAULT '不限' COMMENT '学历要求：不限，初中，高中，中专，大专，本科，硕士，博士',
+  `offer` int(11) NOT NULL DEFAULT '0' COMMENT '薪水 0为面议',
+  `workplace` varchar(100) NOT NULL COMMENT '工作地点',
+  `workyear` varchar(50) NOT NULL COMMENT '工作年限',
+  `endtime` int(11) NOT NULL DEFAULT '0',
+  `createtime` int(11) NOT NULL COMMENT '发布时间',
+  `location_p` varchar(100) NOT NULL,
+  `location_c` varchar(100) NOT NULL,
+  `location_a` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_amouse_weijob_job`;
+CREATE TABLE `ims_amouse_weijob_job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) unsigned NOT NULL,
+  `name` varchar(50) NOT NULL COMMENT '姓名',
+  `hits` int(11) NOT NULL DEFAULT '0',
+  `from_user` varchar(100) NOT NULL,
+  `type` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '4求职',
+  `description` text NOT NULL COMMENT '个人介绍',
+  `status` int(1) NOT NULL DEFAULT '0',
+  `sex` int(11) NOT NULL DEFAULT '0' COMMENT '性别 0男 1女',
+  `mobile` varchar(100) NOT NULL COMMENT '联系电话',
+  `age` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '年龄',
+  `work` varchar(50) NOT NULL COMMENT '期望工作',
+  `edu` varchar(50) NOT NULL COMMENT '学历',
+  `salary` varchar(50) NOT NULL COMMENT '期望工资',
+  `addr` varchar(50) NOT NULL COMMENT '期望地点',
+  `endtime` int(11) NOT NULL DEFAULT '0',
+  `createtime` int(11) NOT NULL COMMENT '发布时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_amouse_weijob_reply`;
+CREATE TABLE `ims_amouse_weijob_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL,
+  `companyid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_amouse_weijob_resume`;
+CREATE TABLE `ims_amouse_weijob_resume` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `from_user` varchar(100) NOT NULL,
+  `name` varchar(20) DEFAULT NULL COMMENT '简历姓名',
+  `sex` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '性别，0为男1为女',
+  `age` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '年龄',
+  `major` varchar(20) NOT NULL DEFAULT '' COMMENT '专业',
+  `college` varchar(10) DEFAULT NULL COMMENT '毕业院校',
+  `home` varchar(255) DEFAULT NULL COMMENT '生源地',
+  `skill` varchar(255) DEFAULT NULL COMMENT '专业技能',
+  `phone` varchar(20) NOT NULL DEFAULT '' COMMENT '手机',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `status` varchar(10) DEFAULT NULL COMMENT '政治面貌',
+  `self` varchar(255) NOT NULL DEFAULT '' COMMENT '自我评价',
+  `experience` varchar(255) NOT NULL DEFAULT '' COMMENT '工作经历',
+  `education` varchar(255) NOT NULL DEFAULT '' COMMENT '教育经历',
+  `job_direction` varchar(255) NOT NULL DEFAULT '' COMMENT '求职方向',
+  `createtime` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `ims_amouse_weijob_resume_recod`;
+CREATE TABLE `ims_amouse_weijob_resume_recod` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) unsigned NOT NULL DEFAULT '0',
+  `jobid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '投简工作id',
+  `cvid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '简历id',
+  `from_user` varchar(100) NOT NULL DEFAULT '0',
+  `createtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '投简时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='投简管理';
+
+
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

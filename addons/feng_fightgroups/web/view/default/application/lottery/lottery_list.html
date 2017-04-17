@@ -1,0 +1,78 @@
+{php include wl_template('common/header');}
+<ul class="nav nav-tabs">
+	<li  class="active"><a href="{php echo web_url('application/lottery/list');}">抽奖团</a></li>
+</ul>
+<div class="clearfix coupon-list-top">
+	<div class="search pull-right">
+	</div>
+	<div><a href="{php echo web_url('application/lottery/create');}" class="btn btn-success">新建抽奖团</a></div>
+</div>
+<style>
+table thead tr th, table tbody tr td {text-align: center; width: 10%;}
+table thead tr th:last-child, table tbody tr td:last-child {text-align: right;}
+</style>
+<div class="panel panel-default">
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th style="width:80px;">商品图</th>
+				<th style="width:180px;">商品名</th>
+				<th class="text-center" style="width:120px;">参团人数</th>
+				<th class="text-center" style="width:120px;">价格</th>
+				<th class="text-center" style="width:160px;">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{loop $lottery $item}
+			<tr data-toggle="popover" data-trigger="hover" data-placement="left" class="js-goods-img">
+				<td><img class="scrollLoading" src="{IMAGE_PIXEL}" data-url="{php echo tomedia($item['goods']['gimg'])}" onerror="this.src='{IMAGE_NOPIC_SMALL}'" height="50" width="50"/></td>
+				<td class="line-feed">
+					{php echo cutstr($item['goods']['gname'], 30, true);}
+				</td>
+				<td class="text-center">
+					<span>{$item['goods']['groupnum']}人</span>
+				</td>
+				<td class="text-center" style="line-height:25px;">
+					<span class="label label-success">{$item['goods']['gprice']}元</span>
+				</td>
+				<td class="text-center">
+					<a href="{php echo web_url('order/group/all', array('lottery_id' =>$item['id']))}" class="">查看所有团</a>-
+					<a href="{php echo web_url('application/lottery/edit', array('id' => $item['id']))}" class="">编辑</a>-
+					<a href="{php echo web_url('application/lottery/delete', array('id' => $item['id']))}" class="">删除</a>
+				</td>
+			</tr>
+			{/loop}
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+		$(".scrollLoading").scrollLoading();
+		$(".js-displayorder").blur(function(e){
+			e.stopPropagation();
+			var $this = $(this);
+			var good_id = $this.data("id");
+			var displayorder = parseInt($this.val());
+			if (isNaN(displayorder)) {
+				$this.parent().addClass('has-error');
+				util.tips('必须为数字', 2000);
+				return false;
+			};
+		});
+
+
+		var $pop = null;
+		$('.scrollLoading').hover(function(){
+			var img = $(this).attr('src');
+			var obj = this;
+			var $pop = util.popover(obj, function($popover, obj){
+				obj.$popover = $popover;
+			}, '<div><img src="'+img+'" style="max-width:200px; max-height:200px;"></div>');
+		}, function(){
+			this.$popover.remove();
+		});
+	});
+</script>
+{php include wl_template('common/footer');}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$set['title']}</title>
+    <base href="{$_W['siteurl']}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="format-detection" content="address=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<link rel="stylesheet" type="text/css" href="<?php echo MODULE_URL;?>template/mobile/css/style.css?v=<?php echo time();?>">
+</head>
+<body>
+<div id="pageSearch" style="display:none;">
+    <div class="tmSearch">
+        <form class="formBox" action="<?php echo $this->createMobileUrl('search');?>" method="post">
+            <span class="search-icon"></span>
+            <input type="text" name="search_content" class="searchTxt" value="" />
+            <button type="submit" id="search-btn">搜索</button>
+        </form>
+        <span class="rightTxt" id="btn">取消</span>
+    </div>
+</div>
+<div id="xctmhBox">
+	<div class="top">
+        <div class="tmHeader">
+            <div class="logo">
+            	<a href="<?php echo $this->createMobileUrl('comeIn');?>"><img src="{$_W['attachurl']}{$set['logo']}" alt="" width="60" height="30"></a>
+            </div>
+            <div class="tmSearch">
+        		<form class="formBox" action="#" method="get">
+            		<span class="fa fa-search"></span>
+                	<input type="text" id="search2" class="searchTxt" value="搜索本地信息" />
+            	</form>
+        	</div>
+            <span class="text-icon"><a href="<?php echo $this->createMobileUrl('per');?>">我的</a></span>
+            <span class="text-icon">|</span>
+            <span class="text-icon"><a href="<?php echo $this->createMobileUrl('category');?>">发布</a></span>
+        </div>
+        <div class="table">
+           <div class="table-row-group-1">
+           {loop $cates $c}
+           		<a href="<?php echo $this->createMobileUrl('category',array("cate_id"=>$c['cate_id']));?>"><div class="table-cell"><span><img src="{$_W['attachurl']}{$c['thumb']}" style="width:60px;height:40px"></span>{$c['name']}</div></a>
+           	{/loop}
+           </div>
+        </div>
+        <!--轮播图效-->
+        <div class="slide-adv">
+			<div class="fullSlide">
+	            <div class="bd">
+	                <ul>
+	                {loop $slides $s}
+	                    <li><a href="{$s['slide_url']}"><img src="{$_W['attachurl']}{$s['slide_pic']}"/></a></li>
+	                {/loop}
+	                </ul>
+	            </div>
+			</div>
+		</div>
+    </div>
+    {loop $category $cat}
+    <div class="cate-list">
+    	<div class="cate-title">{$cat['name']}<i></i><a href="<?php echo $this->createMobileUrl('category',array("cate_id"=>$cat['cate_id']));?>"><span>发布</span></a></div>
+    	<div class="cate-list-a">
+    	{loop $cat['son'] $cs}
+    		<a href="<?php echo $this->createMobileUrl('list',array('cate_id'=>$cs['cate_id']));?>">{$cs['name']}</a>
+    	{/loop}
+    	</div>
+    </div>
+    {/loop}
+    <div class="footer">
+    	<p>{$set['footer_info']}</p>
+    </div>
+</div>
+</body>
+<script language="javascript" src="<?php echo MODULE_URL;?>template/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo MODULE_URL;?>template/mobile/js/jquery.SuperSlide.2.1.2.js"></script>
+<script type="text/javascript">
+jQuery(".fullSlide").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"leftLoop", vis:"auto", autoPlay:true, autoPage:true, trigger:"click" });
+</script>
+<script language="javascript">
+    window.onload = function(){
+        var boxDom1 = document.getElementById("pageSearch");
+        var boxDom2 = document.getElementById("xctmhBox");
+        var searchDom = document.getElementById("search2");
+        var hvr = document.getElementById("ellipsis");
+        var titleDom = document.getElementById("titleBox");
+        var btn = document.getElementById("btn");
+        searchDom.onfocus = function(){
+            boxDom2.style.display = "none";
+            boxDom1.style.display = "block";
+        }
+        btn.onclick = function(){
+            boxDom2.style.display = "block";
+            boxDom1.style.display = "none";
+        }
+        
+    }
+</script>
+</html>

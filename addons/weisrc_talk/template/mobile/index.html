@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--android宽度自适应1:1-->
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <title>{$title}</title>
+    <link rel="stylesheet" type="text/css" href="{RES}/themes/css/basic.css"/>
+    <script type="text/javascript" src="{RES}/themes/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/basic.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/ajax-pushlet-client.js"></script>
+    <!--请写入本页中的所有CSS-->
+    <style>
+        /*根据用户自定义颜色确定*/
+        /*         .pageTopBox{ border-bottom:1px solid #0C9;} */
+
+        /*         .pageContentBox{visibility: hidden} */
+
+        /*顶部*/
+        .top {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .title2 {
+            margin-left: 10px;
+            font-size: 17px;
+            color: #11CC9F;
+            font-weight: 700;
+        }
+
+        .choose {
+            margin: 10px 0 0 10px;
+        }
+
+        .choose a {
+            display: inline-block;
+            padding: 1px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-border-radius: 4px;
+        }
+
+        .all {
+            color: #11CC9F;
+        }
+
+        .sg {
+            margin-left: 5px;
+            color: #61C8FF;
+        }
+
+        .mn {
+            margin-left: 5px;
+            color: #FF5FAE;
+        }
+
+        .allClk {
+            background-color: #11CC9F;
+            color: #fff;
+        }
+
+        .sgClk {
+            background-color: #61C8FF;
+            color: #fff;
+        }
+
+        .mnClk {
+            background-color: #FF5FAE;
+            color: #fff;
+        }
+
+        .titleR {
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+
+        .titleR img {
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+            vertical-align: middle;
+        }
+
+        .back {
+            display: inline-block;
+            padding-right: 15px;
+            height: 40px;
+            line-height: 36px;
+            color: #fff;
+            font-size: 15px;
+            background-color: #11CC9F;
+            margin-left: 5px;
+            border-top-left-radius: 30px;
+            -moz-border-top-left-radius: 30px;
+            -ms-border-top-left-radius: 30px;
+            -o-border-top-left-radius: 30px;
+            -webkit-border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            -moz-border-bottom-left-radius: 30px;
+            -o-border-bottom-left-radius: 30px;
+            -ms-border-bottom-left-radius: 30px;
+            -webkit-border-bottom-left-radius: 30px;
+        }
+
+        .backName {
+            display: inline-block;
+            margin-left: 12px;
+            vertical-align: middle;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .backNum {
+            display: inline-block;
+            max-width: 80px;
+            height: 24px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        /*人员列表*/
+        .list_lan {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            background-color: #EAEFF5;
+        }
+
+        .list_white {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        /*         .list{ */
+        /*             width: 100%; */
+        /*             padding: 20px 0; */
+        /*             text-align: center; */
+        /*         } */
+        .user {
+            display: inline-block;
+            width: 30%;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .head {
+            position: relative;
+            visibility: hidden;
+            display: inline-block;
+            width: 50%;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .head img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .borderMM {
+            border: 1px solid #FF5FAE;
+        }
+
+        .borderGG {
+            border: 1px solid #61C8FF;
+        }
+
+        .textMM {
+            display: inline-block;
+            width: 100%;
+            height: 20px;
+            color: #FF5FAE;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .textGG {
+            display: inline-block;
+            width: 100%;
+            height: 20px;
+            color: #61C8FF;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .time {
+            display: inline-block;
+            width: 100%;
+            height: 20px;
+            margin-top: -3px;
+            overflow: hidden;
+            font-size: 11px;
+            color: #ccc;
+        }
+
+        .inHere {
+            display: inline-block;
+            margin-top: -13px;
+            height: 15px;
+            line-height: 15px;
+            padding: 0 3px;
+            background-color: #11CC9F;
+            font-size: 11px;
+            color: #fff;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-border-radius: 4px;
+        }
+
+        .nobody {
+            visibility: hidden
+        }
+
+        /*增加*/
+        .tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            visibility: hidden;
+        }
+
+        .mdlBox {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .chBtn {
+            display: inline-block;
+            padding: 3px 20px;
+            margin-top: 15px;
+            background-color: #11CC9F;
+            margin-left: 10px;
+            font-size: 16px;
+            color: #fff;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<!--S页面顶部内容-->
+{php include $this->template('_top');}
+<!--E页面顶部内容-->
+
+<!--S页面中间内容-->
+<div class="pageContentBox">
+    <!--S 顶部-->
+    <div class="top">
+        <span class="title2">约爱广场</span>
+        <div class="choose">
+            <a class="all">全部</a>
+            <a class="sg">帅哥</a>
+            <a class="mn">美女</a>
+        </div>
+        <div class="titleR">
+            <a href="{php echo $this->createMobileurl('getnearMyInfo', array(), true)}">
+                <img src="{php echo tomedia($user['headimgurl']);}" alt=""/>
+            </a>
+            <a class="back" href="{php echo $this->createMobileurl('getgoToMyMsg', array(), true)}">
+                <span class="backName">消息</span>
+                <span class="backNum" id="span_num" style="font-size: 17px;color: #fff">{$noreadcount}</span>
+            </a>
+        </div>
+    </div>
+    <!--E 顶部-->
+    <!--S 列表-->
+    <div id="type_list">
+        {php $flag=true;}
+        {php $closediv=false;}
+        {php $itemcount=1;}
+        {loop $fans $item}
+        {php $itemindex=$itemcount%3;}
+        {if $itemindex==1}
+        <div class="{if $flag==true}list_white{else}list_lan{/if}">
+        {php $flag=!$flag;}
+        {php $closediv=true;}
+        {/if}
+            <div class="user">
+                <div class="head {if $item['sex'] == 1}borderGG{else}borderMM{/if}">
+                    <img src="{php echo tomedia($item['headimgurl']);}" alt="" onclick="readNum('{$item['from_user']}')" onerror="this.src='resource/images/noavatar_middle.gif'"/>
+                    {if $this->IsRange($item['lat'], $item['lng'])==1}
+                    <span class="inHere">现场</span>
+                    {/if}
+                </div>
+                <br/>
+                <span class="{if $item['sex'] == 1}textGG{else}textMM{/if}">{$item['nickname']}</span><br/>
+                <span class="time">{php echo $this->format_date($item['lasttime']);}</span>
+            </div>
+        {if $itemindex==0}
+        </div>
+        {php $closediv=false;}
+        {/if}
+        {php $itemcount++;}
+        {/loop}
+        {if $closediv==true}
+        </div>
+        {/if}
+        <div class="user nobody"></div>
+    </div>
+    <a style="display: block;margin:30px auto 0;width: 70px;font-size: 12px" id="getMore">加载更多</a>
+</div>
+<!--E页面中间内容-->
+<!--S 提示框-->
+<div class="tips">
+    <div class="mdlBox">
+        <p style="font-size: 14px;color:#fff;line-height: 18px;">亲~您一下看了N多人了<br/>
+            完善资料更具交友魅力哦</p>
+        <div><a class="chBtn noEdit">继续查看</a><a class='chBtn goEdit'>去完善资料</a></div>
+    </div>
+</div>
+<!--E 提示框-->
+
+<!--S页面底部Bar内容-->
+{php include $this->template('_bar');}
+<!--E页面底部Bar内容-->
+<script type="text/javascript">
+    var set_type = '';
+    var pagesize = "{$pagesize}";
+    var page = 1;
+    var islast="";
+    var mark;
+    $(function () {
+        if (page >= pagesize) {
+            $("#getMore").hide();
+        }
+
+        //加载更多
+        $("#getMore").click(function () {
+            var self = this;
+            $(self).html("加载中...");
+            url="{php echo $this->createMobileurl('getfindSex', array(), true)}";
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : {
+                    'page' : (page + 1),
+                    'type': mark
+                },
+                // type of data we are expecting in return:
+                dataType : 'json',
+                timeout : 3000,
+                context : $('body'),
+                success : function(result) {
+                    if (result.isResultTrue) {
+                        page = page + 1;
+                        pagesize = result.pagesize;
+                        if (pagesize > page) {
+                            $("#getMore").show();
+                        } else {
+                            $("#getMore").hide();
+                        }
+                        $("#type_list").html($("#type_list").html() + result.resultMsg);
+                        $(".head").height($(".head").width());
+                        $(".head").css({visibility: "visible"});
+                        $(self).html("加载更多");
+                    } else {
+                        $("#type_list").html("");
+                    }
+                },
+                error : function(data) {
+                    alert('网络通讯失败，请重试!');
+                }
+            });
+        });
+    })
+
+    window.onload = function () {
+        $(".head").height($(".head").width());
+        $(".head").css({visibility: "visible"});
+
+        var marginTop = $(window).height() / 2 - $(".mdlBox").height() / 2;
+        $(".mdlBox").css({marginTop: marginTop});
+        /*全部 美女 帅哥*/
+        $(".choose a").click(function () {
+            page = 1;
+            var arr = ["allClk", "sgClk", "mnClk"];
+            var len = $(".choose a").length;
+            for (var i = 0; i < len; i++) {
+                if ($(this)[0] == $(".choose a:eq(" + i + ")")[0]) {
+                    mark = i;
+                    set_type = i;
+                    if (!$(this).hasClass(arr[i])) {
+                        $(this).addClass(arr[i]);
+                    }
+                    if (mark == 0) {
+                        if ($(".choose a:eq(1)").hasClass("sgClk")) {
+                            $(".choose a:eq(1)").removeClass("sgClk");
+                        }
+                        if ($(".choose a:eq(2)").hasClass("mnClk")) {
+                            $(".choose a:eq(2)").removeClass("mnClk");
+                        }
+                    } else if (mark == 1) {
+                        if ($(".choose a:eq(0)").hasClass("allClk")) {
+                            $(".choose a:eq(0)").removeClass("allClk");
+                        }
+                        if ($(".choose a:eq(2)").hasClass("mnClk")) {
+                            $(".choose a:eq(2)").removeClass("mnClk");
+                        }
+                    } else if (mark == 2) {
+                        if ($(".choose a:eq(0)").hasClass("allClk")) {
+                            $(".choose a:eq(0)").removeClass("allClk");
+                        }
+                        if ($(".choose a:eq(1)").hasClass("sgClk")) {
+                            $(".choose a:eq(1)").removeClass("sgClk");
+                        }
+                    }
+                }
+            }
+
+            url="{php echo $this->createMobileurl('getfindSex', array(), true)}";
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : {
+                    'page' : page,
+                    'type': mark
+                },
+                // type of data we are expecting in return:
+                dataType : 'json',
+                timeout : 3000,
+                context : $('body'),
+                success : function(result) {
+                    if (result.isResultTrue) {
+                        page = 1;
+                        pagesize = result.pagesize;
+                        if (pagesize > page) {
+                            $("#getMore").show();
+                        } else {
+                            $("#getMore").hide();
+                        }
+                        $("#type_list").html(result.resultMsg);
+                        $(".head").height($(".head").width());
+                        $(".head").css({visibility: "visible"});
+                    } else {
+                        $("#type_list").html("");
+                    }
+                },
+                error : function(data) {
+                    alert('网络通讯失败，请重试!');
+                }
+            });
+        });
+    };
+
+    $("#set_f5").click(function () {
+        window.location.href = "{php echo $this->createMobileurl('index', array(), true)}";
+    })
+
+    var set_userid = "";
+    function readNum(userid) {
+        if (userid == '{$from_user}') {
+            window.location.href = "{php echo $this->createMobileurl('getnearMyInfo', array(), true)}";
+            return;
+        }
+
+        window.location.href = "{php echo $this->createMobileurl('getnearTaInfo', array(), true)}" + "&userid=" + userid;
+//        $.post('/user/getnearTaInfoReadNum', function (result) {
+//            if (result.isResultTrue) {
+//                window.location.href = "/user/getnearTaInfo?userid=" + userid;
+//            } else {
+//                set_userid = userid;
+//                $(".tips").css({visibility: "visible"});
+//            }
+//        })
+    }
+    //$("#span_num").html(result.resultMsg);
+    $(".noEdit").click(function () {
+        window.location.href = "{php echo $this->createMobileurl('getnearTaInfo', array(), true)}" + "&userid=" + set_userid;
+    });
+
+    $(".goEdit").click(function () {
+        window.location.href = "{php echo $this->createMobileurl('getnearMyInfo', array(), true)}";
+    });
+
+</script>
+{php echo register_jssdk(false);}
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            success: function(){
+            },
+            cancel: function(){
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+</body>
+</html>

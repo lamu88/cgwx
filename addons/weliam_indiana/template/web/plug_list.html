@@ -1,0 +1,67 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $op == 'list'} class="active" {/if}><a href="{php echo web_url('application/plugins/list');}">应用插件库</a></li>
+</ul>
+<style>
+.main_bd{padding-bottom:30px}
+.plugins_wrp{padding:20px 30px}
+.plugins_wrp .hd{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #e7e7eb}
+.plugins_wrp ul{margin-right:-24px;overflow:hidden;padding-left: 0px;}
+.plugins_wrp .item_wrp{float:left;display:inline-block;*display:inline;*zoom:1;width:50%;position:relative;*width:49.9%}
+.plugins_wrp .plugin_desc{padding-bottom:16px;color:#8d8d8d;margin: 14px 0;}
+.table_wrp{padding:20px 30px}
+.table_wrp .table_cell{height:40px;padding-left:20px;padding-right:20px}
+.table_wrp .table_cell.plugin_name{width:450px}
+.table_wrp .table_cell .privilege{color:#8d8d8d}
+.table_wrp .table_cell .privilege .dot{font-style:normal;margin-right:5px}
+.table_wrp .tbody .table_cell{padding-top:15px;padding-bottom:15px;vertical-align:top}
+.table_wrp .plugin_logo{float:left;margin-right:10px}
+.table_wrp .plugin_logo img{display:block;max-width:80px}
+.table_wrp .plugin_info{overflow:hidden}
+.table_wrp .plugin_info h4{font-weight:normal}
+.table_wrp .plugin_info .desc{color:#8d8d8d}
+.plugin_item{display:block;overflow:hidden;margin-right:24px;margin-bottom:24px;color:#222;height:92px;padding-left:94px;border:1px solid #e7e7eb}
+.plugin_item:hover{text-decoration:none;background-color:#f4f5f9;border-color:#d9dadc}
+.plugin_item .plugin_icon{position:absolute;width:92px;height:92px;background-color:#ccc;top:0;left:0}
+.plugin_item .plugin_icon img {width: 92px;height: 92px;}
+.plugin_item .plugin_status{position:relative;float:right;text-align:right;padding:35px 45px 35px 0}
+.plugin_item .plugin_status .status_txt.warn{color:#e15f63}
+.plugin_item .plugin_status .access{width:16px;height:16px;vertical-align:middle;display:inline-block;position:absolute;right:10px;top:40px}
+.plugin_item .plugin_content{padding:10px 0 10px 20px;overflow:hidden}
+.plugin_item .plugin_content .title{margin-bottom:4px;width:216px;font-size:14px;font-weight:400;font-style:normal;margin-top: 0px;}
+.plugin_item .plugin_content .desc{color:#8d8d8d;font-size:12px;line-height:24px;width:238px;margin: 12px 0;}
+</style>
+
+<div class="panel panel-default">
+	<div class="panel-body table-responsive" style="padding: 0px;">
+		<div class="main_bd">
+        <div class="plugins_wrp">
+			<p class="plugin_desc">你可以添加下列需要的功能，丰富系统能力和体验</p>
+            <dl>
+	            <dd>
+	                <ul id="js_plugins">
+	                	
+						<li class="item_wrp">
+							<div class="plugin_item">
+								<div class="plugin_icon"><img src="https://res.wx.qq.com/mpres/htmledition/images/icon/service/icon_vote_b.png"></div>
+								<div class="plugin_status">
+									<i class="access"></i>
+									<span class="status_txt">
+											已添加					
+									</span>
+								</div>
+								<div class="plugin_content">
+									<h3 class="title">机器人</h3>
+									<p class="desc">机器人轻松使用！</p>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+	            </dd>
+            </dl>
+        </div>
+    </div>
+	</div>
+</div>
+{template 'common/footer'}

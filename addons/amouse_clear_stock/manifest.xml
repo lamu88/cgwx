@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[清货商场]]></name>
+		<identifie><![CDATA[amouse_clear_stock]]></identifie>
+		<version><![CDATA[1.2.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[清货商场]]></ability>
+		<description><![CDATA[全民互粉辅助功能，给微商提供上传商品，清理商品的平台]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+    <cover>
+            <entry title="货源中心" do="product" />
+    </cover>
+		<menu>
+			<entry title="货源分类管理" do="category" state="" direct="false" />
+			<entry title="个人货源管理" do="product" state="" direct="false" />
+		</menu>
+		<home>
+		</home>
+		<profile>
+
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

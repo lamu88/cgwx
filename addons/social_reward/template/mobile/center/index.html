@@ -1,0 +1,266 @@
+{template 'common/header'}
+    <link rel="stylesheet" type="text/css" href="/addons/social_reward/template/mobile/center/css/app.css"/>
+    <title>个人中心</title>
+    <script src="/addons/social_reward/template/mobile/center/js/fit_image.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+      .header{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
+        background-color: #fff;
+        z-index: 999;
+      }
+      .header>span{
+        display: inline-block;
+        vertical-align: middle;
+        width: 120px;
+        border: 1px solid #f60;
+        height: 35px;
+        line-height: 35px;
+      }
+      .header>span:first-child{
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+      }
+      .header>span:last-child{
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        /*margin-left: -4px;*/
+      }
+      .header .headerActive{
+        background-color: #f60;
+        color: #fff;
+      }
+      .header .headerstatic{              
+        color: #f60;
+      }
+      .recode{
+        float: left;
+        width: 47%;
+        margin-left: 2%;
+        margin-top: 2%;
+        box-shadow: 1px 1px 2px #e9e9e9,-1px -1px 2px #e9e9e9;
+        background-color: #fff;
+      }
+      .imgContainer{
+        width: 100%;
+        padding-top: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .imgContainer>div{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        /*background-color: #f00;*/
+      }
+      .imgContainer>div>img{
+        display: block;
+      }
+      .video_icon{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        background-image: url(/addons/social_reward/static/player.jpg);  
+        background-size: 50px 50px;       
+        background-repeat: no-repeat;
+        background-position: center center; 
+        z-index: 99;  
+      }
+      .moneyTip{
+        color: #333;
+        padding-left: 5px;
+        padding-top: 8px;
+        padding-bottom: 3px;
+        font-size: 12px;
+        max-width: 100%;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
+      }
+      .blurSacn{
+        font-size: 10px;
+        color: #666;
+        padding-left: 5px;
+      }
+      @media screen and (min-width: 300px) and (max-width: 350px) {
+        .blurSacn{
+          font-size: 9px;
+          color: #666;
+          padding-left: 5px;
+        }
+      }
+      @media screen and (min-width: 350px){
+        .blurSacn{
+          font-size: 10px;
+          color: #666;
+          padding-left: 5px;
+        }
+      } 
+      .btns{
+        border-top: 1px solid #e9e9e9;
+        margin-top: 8px;
+      }
+      .btns>span{
+        display: inline-block;
+        float: left;
+        width: 50%;
+        text-align: center;
+        padding: 8px 0;
+      }
+      .btns>span:first-child{
+        border-right: 1px solid #e9e9e9;
+        color: #0db60c;
+      }
+      .btns>span:last-child{
+        color: #f02626;
+      }
+      #order_loading { width:94%;padding:10px;color:#666;text-align: center;margin:0 auto;margin-top: -80px;}
+      #recodesLeft{
+        padding-bottom: 80px;
+      }
+    </style>    
+    <header class="header">
+      <span class="headerActive" id="originalImg" onclick="toggle_header(1)">原图</span><span class="headerstatic" id="blurImg" onclick="toggle_header(2)">模糊图</span>
+    </header>
+    
+    <div style="height: 45px;margin-top:10px;"></div>
+    <section id="recodesLeft" class="clearfix">
+      {loop $list $item}
+      <div class="recode">
+        <div class="imgContainer">
+          <div style="z-index: 2;">
+            <img src="{$item['originalurl']}" onload="fitImage(this.parentNode,this)" class="originalImg" />
+            <img src="{$item['blururl']}" onload="fitImage(this.parentNode,this)" class="blurImg" />
+            {if $item['type']=='shortvideo'}
+            <div class="video_icon"></div>
+            {/if}
+          </div>  
+        </div>
+        <div class="moneyTip">金额随机:{php echo number_format($item['reward_min'],2)}-{php echo number_format($item['reward_max'],2)}元|{if $item['status']==0}审核中{elseif $item['status']==1}通过{elseif $item['status']==-1}未通过{/if}</div>
+        <div class="blurSacn">模糊度:{$item['fuzzy']}% | <span>支付:{php echo number_format(pdo_fetchcolumn('SELECT sum(payment) FROM '.tablename('social_reward_reward').' WHERE did=:did and uniacid=:uniacid;',array('did'=>$item['id'],'uniacid'=>$_W['uniacid'])),2)}</span></div>
+        <div class="btns">
+          <span><a href="{php echo $this->createMobileUrl('center',array('op'=>'setting','mediaid'=>$item['media_id']))}">设置</a></span>
+          <span onclick="delImg({$item['id']})">删除</span>
+        </div>
+      </div>
+      {/loop}
+    </section>
+    <script type="text/javascript">
+      function toggle_header(style){
+        if(style == 1){
+          $('#originalImg').attr('class','headerActive');
+          $('#blurImg').attr('class','headerstatic');
+          toggle_img(1);
+        }else{
+          $('#originalImg').attr('class','headerstatic');
+          $('#blurImg').attr('class','headerActive');
+          toggle_img(2);
+        }
+      }
+      
+      function toggle_img(style){
+        var originalImg = $('.recode').find('.originalImg');
+        var blurImg = $('.recode').find('.blurImg');
+        if(style == 1){
+          for(var i = 0; i < originalImg.length; i++){
+            $(originalImg[i]).css('display','inline-block');
+            $(blurImg[i]).css('display','none');
+            fitImage(originalImg[i].parentNode,originalImg[i]);
+          }
+        }else{
+          for(var i = 0; i < originalImg.length; i++){
+            $(originalImg[i]).css('display','none');
+            $(blurImg[i]).css('display','inline-block');
+            fitImage(blurImg[i].parentNode,blurImg[i]);
+          }
+        }
+      }
+      
+      var showcount = {$showcount};
+      var cpage = {$pindex};
+      //获取滚动条当前的位置 
+      function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+          scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+          scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+      }
+      //获取当前可是范围的高度 
+      function getClientHeight() {
+        var clientHeight = 0;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+          clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        } else {
+          clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+      }
+      //获取文档完整的高度 
+      function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      }
+      window.onscroll = function() {          
+        if (getScrollTop() + getClientHeight() == getScrollHeight()) {
+          
+          var totalcount = {$total};
+          if(showcount >= totalcount){
+            var ele = $("#order_loading");
+            if(ele.length < 1){
+              $("#recodesLeft").after("<div id='order_loading'>已经加载全部作品</div>");
+            }
+          }else{
+            $("#recodesLeft").after("<div id='order_loading'><i class='fa fa-spinner fa-spin'></i>正在加载。。。</div>");
+            
+            cpage = cpage + 1;
+            var data = {page:cpage}
+            $.post("{php echo $this->createMobileUrl('center')}",data,function(tpl){
+              $("#recodesLeft").append(tpl);
+              $("#order_loading").remove();
+              if($('#blurImg').hasClass('headerActive')){
+                toggle_img(2);
+              }
+            });
+            
+          }
+        }
+      } 
+       
+        function delImg(dataid){
+          require(['tpl', 'core'], function(tpl, core) {
+            core.tip.confirm('确认删除？',function(){
+              core.json('center/index',{
+                  op:'delete',
+                  did:dataid,
+              },function(result){
+                  if(result.status==1){
+                     core.tip.show("删除成功");
+                     window.location.reload();
+                  }else{
+                    core.tip.show("删除失败，请重新删除");
+                  }
+                  
+              },true,true);
+            });
+          });
+        }
+
+    </script>
+{template 'common/footer'}
+{template 'common/footer_base'}

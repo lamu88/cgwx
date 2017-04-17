@@ -1,0 +1,108 @@
+{template 'common/header'}
+<div class="main">
+<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        参数设置
+    </div>
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">活动参数设置</div>
+            <div class="form-group">
+                <label class=" col-sm-3 col-md-2 control-label">设置邮箱</label>
+                <div class="col-sm-9 col-xs-12">
+                    <a type="submit" class="btn btn-primary span3" href="../web/index.php?c=profile&a=notify&"
+                       target="_blank" value="去设置邮箱">去设置邮箱</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">发送消息（只支持认证服务号）</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">接收通知微信昵称</label>
+
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <input type="text" class="form-control" name="nickname" value="{$settings['nickname']}">
+
+                    <div class="help-block">请填写微信昵称。</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">接收通知微信openid</label>
+
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <input type="text" class="form-control" name="openid" value="{$settings['openid']}">
+
+                    <div class="help-block">请填写上面昵称对应的openid。</div>
+                </div>
+            </div>
+
+            <div class="form-group sms">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">接收通知模板id</label>
+                <div class="col-sm-9 col-xs-9 col-md-9">
+                    <input type="text" class="form-control" name="tpl" value="{$settings['tpl']}">
+                    <div class="help-block">模板名称：新简历通知 TM00764。
+                        该功能需要您的公众号为认证服务号</div>
+                    <!--姓名，你好！
+你收到了一份新简历，请及时登录内推网查阅。
+
+应聘职位：产品经理
+简历名称：XXXXX
+姓名：推推
+工作经验：3年
+最近工作：内推网 | 产品经理
+
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">借用高级认证设置(自己是认证服务号忽悠此项)</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class=" col-sm-3 col-md-2 control-label">新用户关注引导页</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="followurl" class="form-control" name="followurl" value="{$settings['followurl']}"/>
+                  <span class="help-block">
+                      此处为空，就是不需要关注也能参与活动，如果要粉丝关注才能参与活动，请先在微信官方发布一条引导关注的图文信息，然后把地址填入，
+                      必须http://开头
+                      <a target="_blank" href="http://www.dwz.cn/">短网址转换</a>
+                  </span>
+            </div>
+        </div>
+
+       <div class="form-group">
+            <label class=" col-sm-3 col-md-2 control-label">AppId：</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="appid" name="appid" class="form-control" value="{$settings['appid']}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class=" col-sm-3 col-md-2 control-label">AppSecret：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" name="secret" class="form-control" value="{$settings['secret']}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input name="token" type="hidden" value="{$_W['token']}"/>
+                <button type="submit" class="btn btn-success col-sm-2" name="submit" value="提交">
+                    <i class="fa fa-check-circle"></i> 提交
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{template 'common/footer'}

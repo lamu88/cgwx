@@ -1,0 +1,119 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/*本css是wemew.cn手机前端css样式，请勿随意改动 Yancy 2014-07-15*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓颜色↓↓*/
+/*请在相应地方使用相应的颜色,此颜色可在页面中随意使用
+标题类颜色:#333
+正文颜色:#666
+红色警示色： #ff6060
+绿色： #3fe08b
+黄色： #f6cc25
+除此以外#ccc #ddd等灰色也可以酌情使用
+*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓全局格式化↓↓*/
+*{ padding:0; margin:0; font-family:'微软雅黑';font-size:14px; line-height:24px;outline:none; border:none;color:#666;} /*去掉谷歌浏览器中链接有黄色边框，全站的默认字体定义*/
+body{ line-height:20px; word-wrap:break-word; background:#f4f6f9;}
+html{ overflow:auto; overflow-x:hidden;-webkit-text-size-adjust:none;}
+a{text-decoration:none; cursor:pointer; font-size:inherit;}
+b{ font-size:inherit; color:inherit;}
+img{ border:none;}
+.clearB{ clear:both;}
+.lineCCC{ height:1px; width:100%; background:#ccc; margin:10px 0;}
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓Button按钮样式↓↓*/
+/*有icon的大按钮*/
+.btnBig{ display:block; width:92%; margin:5px auto;height:40px; line-height:40px; position:relative; text-indent:35px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; font-size:15px; font-weight:bold;background: #fff;background: -moz-linear-gradient(top, #fff, #f3f3f3 80%);background:-webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f3f3f3)); border:1px solid #ccc;border-top: 1px solid #ddd;-moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;}
+.btnBig .icon{ position:absolute; top:10px; left:10px;width:20px; height:20px;}
+.btnBig b{ display:block; float:left; width:35%; overflow:hidden; line-height:40px; height:40px; color:#666;}
+.btnBig span{ font-size:12px; display:inline-block; float:right; text-align:right; line-height:40px; height:40px; font-weight:normal; padding-right:2%; color:#999;width:60%; overflow:hidden; }
+/*正常按钮*/
+.btnNormal{ display:block; width:92%; margin:5px auto;height:40px; line-height:40px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; font-size:15px; font-weight:bold;background: #fff;background: -moz-linear-gradient(top, #fff, #f3f3f3 80%);background:-webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f3f3f3)); border:1px solid #ccc;border-top: 1px solid #ddd; text-align:center;-moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;}
+.btnNormal:active,.btnBig:active{ color:#333;-moz-box-shadow:0 0 5px #ccc;-webkit-box-shadow:0 0 5px #ccc;box-shadow:0 0 5px #ccc;}
+
+.btnDisable{display:block; width:92%; margin:5px auto;height:40px; line-height:40px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; font-size:15px; font-weight:bold;background: #fff;background: -moz-linear-gradient(top, #fff, #f9f9f9 80%);background:-webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f9f9f9)); border:1px solid #ddd;border-top: 1px solid #eee; text-align:center; color:#aaa;-moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;}
+
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓Input表单样式↓↓*/
+.inputNormal{ width:90%; height:30px; line-height:30px; padding:2px 1%; margin:5px auto; border:1px solid #ddd; display:block;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; color:#666;}/*input元素样式*/
+.inputFocus{-moz-box-shadow:0 0 5px #ccc;-webkit-box-shadow:0 0 5px #ccc;box-shadow:0 0 5px #ccc;}
+.textarea{ width:90%; height:60px; line-height:20px; padding:2px 1%; margin:5px auto; border:1px solid #ddd; display:block;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; color:#666;}/*textarea元素样式*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓H标题元素，该元素已经写入布局样式↓↓*/
+h1{ font-size:16px; line-height:24px; padding:6px 0; color:#333;}/*用于盒子里面的一个分类标题*/
+h2{font-size:14px; line-height:18px;color:#333;}/*用于二级页面中的二级标题*/
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓全局文字Text,整站正文等用得最多的文字样式在*中设置↓↓*/
+.textMini{ font-size:12px; color:#999;line-height:22px;}/*提示性的描述字体，淡雅*/
+.textH1{ font-size:15px; font-weight:bold;}
+.textH2{ font-size:14px; font-weight:bold;}
+.textRed{ color:#ff6060; padding:0 2px; font-size:inherit;}/*红色高亮提醒文字*/
+.textYellow{ color:#f6cc25; padding:0 2px; font-size:inherit;}/*绿色提醒文字*/
+.textGreen{ color:#3fe08b; padding:0 2px; font-size:inherit;}/*绿色提醒文字*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓全局图标↓↓*/
+.iconCtrl{display:inline-block; width:20px; height:20px; margin:0 3px;overflow:hidden;vertical-align:middle;}/*操作性icon*/
+.iconCtrl:hover{filter:alpha(opacity=80);-moz-opacity:.8;opacity:.8;}
+.delete{background:url(../images/icon.png) -68px -105px; }/*操作：删除*/
+.edit{ background: url(../images/icon.png) -88px -105px;}/*操作：编辑*/
+.question{background: url(../images/icon.png) -50px -105px;}/*操作：问号*/
+.map{ background:url(../images/icon.png) -32px -105px;}/*地图打点*/
+.blacklist{background:url(../images/icon.png) -16px -105px;}/*拉黑*/
+.right{background:url(../images/icon.png) -181px -105px;}/*恢复 等操作*/
+.scanCoder{background:url(../images/icon.png) -198px -105px;}/*二维码*/
+.select{background:url(../images/icon.png) -220px -105px;}/*确定选择*/
+
+.iconGG{display:inline-block; width:15px; height:15px; margin:0 3px;overflow:hidden;vertical-align:middle;background:url(../images/icon.png) -78px -88px; }
+.iconMM{display:inline-block; width:15px; height:15px; margin:0 3px;overflow:hidden;vertical-align:middle;background:url(../images/icon.png) -60px -88px; }
+.iconNew{display:inline-block; width:15px; height:18px; margin:0 3px;overflow:hidden;vertical-align:middle;background:url(../images/icon.png) -165px -107px;}
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓多页面可能会用到的Css↓↓*/
+.paddingBtm10{ padding-bottom:10px;}/*布局padding底部10px*/
+.paddingTop10{ padding-top:10px;}/*布局padding顶部10px*/
+.marginBtm10{ margin-bottom:10px;}/*布局margin下边10px*/
+.marginTop10{ margin-top:10px;}/*布局margin上边10px*/
+.marginTop20{ margin-top:20px;}/*布局margin上边20px*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓内容盒子块面↓↓*/
+.contentOneBox{ width:88%; height:auto; overflow:auto; padding:10px 2%;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px; background: #fff;background: -moz-linear-gradient(top, #fff, #f3f3f3 80%);background:-webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f3f3f3)); border:1px solid #ccc;border-top: 1px solid #ddd; margin:0 auto; text-align:justify;}/*一个内容盒子*/
+.contentCenterBox{ width:92%; margin:0 auto;}/*内容居中的盒子*/
+
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓二级页面模板样式*/
+.pageTopBox{ position:relative; width:100%; height:70px; background:#ccc;}
+.pageTopBox .bg img{ width:100%; height:70px;}
+.pageTopBox .title{ position:absolute; top:22px; left:50px; color:#fff; font-size:18px;}
+.pageTopBox .title img{ position:absolute; top:-3px; left:-35px; color:#fff; font-size:18px; width:30px;}
+.pageContentBox{ height:auto; overflow:auto; padding:20px 0 70px 0;}
+
+.pageBtmBox{ position:fixed; width:100%; height:50px; bottom:0;background: #999; /* 为较旧的或者不支持的浏览器设置备用属性 */
+    background: -moz-linear-gradient(top, #e1e1e1, #f5f5f5 80%);
+    background: -webkit-gradient(linear, 0 0, 0 80%, from(#e1e1e1), to(#f5f5f5)); z-index:999}
+.pageBtmBox .copyRight{ position:relative; float:left; width:30%; height:50px; overflow:hidden;}
+.pageBtmBox .copyRight a{color:#ccc;font-size:12px;line-height:50px; padding-left:35px;}
+.pageBtmBox .copyRight img{ position:absolute; width:20px; height:20px; top:14px; left:10px;}
+
+.pageBtmBox .ctrlBox{ float:right; height:50px; width:70%; overflow:hidden;}
+.pageBtmBox a.navOne{ float:right; display:block; width:48px; height:48px; background:#f4f6f9;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px; margin:1px 1px 0 0; position:relative;}
+.pageBtmBox a.navOne img{ width:20px; position:absolute; top:13px; left:15px;}
+
+/*底部菜单样式*/
+.phone_bottomMenu{border:solid 1px #ddd; width:150px; position:fixed; bottom:50px; right:0; display:none;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px; z-index:999}
+.phone_bottomMenu a{width:100%; border-bottom:solid 1px #ddd; overflow:hidden; height:35px; background:#fff; display:block}
+.phone_bottomMenu a span{padding:0 15px; font-size:12px; color:#666; line-height:35px;}
+/*微信分享引导*/
+.shareGuide{ width:100%; background:url(../images/opticy80Black.png); position:fixed; top:0; left:0; z-index:999;}
+.shareGuide img{ width:70%; float:right; margin:10px;}
+
+/*wemew.cn后台管理所有页面的全局css样式已结束，请勿随意添加 Yancy 2014-04-24*/

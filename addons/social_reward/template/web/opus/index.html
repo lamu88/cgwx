@@ -1,0 +1,214 @@
+{template 'common/header'}
+
+<style type="text/css">
+	img.opus{
+		cursor: pointer;
+	}
+	#imagesrc{
+		width: 100%;
+	}
+	#shortvideosrc{
+		width: 100%;
+	}
+</style>
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="social_reward" />
+                <input type="hidden" name="do" value="opus" />
+                <input type="hidden" name="p"  value="index" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">昵称</label>
+                    <div class="col-xs-12 col-sm-8 col-lg-9">
+                        <input class="form-control" name="nickname" id="" type="text" value="{$_GPC['nickname']}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">状态</label>
+                    <div class="col-xs-12 col-sm-8 col-lg-9">
+                        <select name="status" class='form-control'>
+							<option value="" {if $_GPC['status'] == ''} selected{/if}></option>
+                            <option value="0" {if $_GPC['status']== '0'} selected{/if}>未审核</option>
+                            <option value="1" {if $_GPC['status'] == '1'} selected{/if}>审核通过</option>
+                            <option value="-1" {if $_GPC['status'] == '-1'} selected{/if}>审核不通过</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-1 control-label">提交时间</label>
+                    
+                    <div class="col-xs-12 col-sm-7 col-lg-7">
+                    <div class="input-group">
+	                    <div class='input-group-addon'>
+	                        <label class='radio-inline' style='margin-top:-7px;'>
+	                            <input type='radio' value='0' name='searchtime' {if $_GPC['searchtime']=='0'}checked{/if}>不搜索
+	                        </label>
+	                        <label class='radio-inline'  style='margin-top:-7px;'>
+	                            <input type='radio' value='1' name='searchtime' {if $_GPC['searchtime']=='1'}checked{/if}>搜索
+	                        </label>
+	                    </div>
+	                    {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+	                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <style>
+        .label{cursor:pointer;}
+    </style>
+    {template 'web/opus/tabs'}
+    {if $op=='viewcomplain'}
+    <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                    <tr>
+                        <th>投诉者</th>
+                        <th>违规类型</th>
+                        <th>违规描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {loop $records $item}
+                    <tr>
+                        <td>{$item['nickname']}</td>
+                        <td>{$item['complain_type']}</td>
+                        <td>{$item['complain_reason']}</td>
+                    </tr>
+                    {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+    {else}
+    <form action="" method="post">
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+						<tr>
+							<th >ID</th>
+							<th >上传者</th>
+							<th >作品</th>
+							<th >上传时间</th>
+							<th >作品类型</th>
+                            {if $op=='passed'}
+                            <th>赞</th>
+                            <th>坑</th>
+                            <th>累计赏金</th>
+                            {elseif $op=='suspect'}
+                            <th>投诉次数</th>
+                            {/if}
+							<th >状态</th>
+							<th style="">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $list $item}
+						<tr>
+							<td>{$item['id']}</td>
+							<td>{$item['nickname']}</td>
+							<td><img src="{$item['originalurl']}" width="60" height="60" class="opus" data-type="{$item['type']}"></td>
+							<td>{php echo date("Y-m-d",$item['createtime'])}</td>
+							<td><span class="label label-info">{if $item['type']=='image'}图片{elseif $item['type']=='shortvideo'}小视频{elseif $item['type']=='video'}视频{/if}</span></td>
+                            {if $op=='passed'}
+                            <td>{php echo pdo_fetchcolumn('SELECT sum(liked) FROM '.tablename('social_reward_reward').' WHERE did=:did;',array('did'=>$item['id']))}</td>
+                            <td>{php echo pdo_fetchcolumn('SELECT sum(unliked) FROM '.tablename('social_reward_reward').' WHERE did=:did;',array('did'=>$item['id']))}</td>
+                            <td>{php echo pdo_fetchcolumn('SELECT sum(payment) FROM '.tablename('social_reward_reward').' WHERE did=:did;',array('did'=>$item['id']))}</td>
+                            {elseif $op=='suspect'}
+                            <td>{$item['complain_count']}<br><a href="{php echo $this->createWebUrl('opus',array('did'=>$item['id'],'op'=>'viewcomplain'))}">点击查看详情</a></td>
+                            {/if}
+							<td>
+                            {if $op!='suspect'}
+                            {if $item['status']==0}<span class="label label-default">未操作</span>{elseif $item['status']==1}<span class="label label-success">审核通过</span>{elseif $item['status']==-1}<span class="label label-danger">审核未通过</span>
+                            {/if}
+                            {else}
+                            {if $item['complain']==0}<span class="label label-default">投诉未处理</span>{elseif $item['complain']==1}<span class="label label-success">投诉已处理</span>
+                            {/if}
+                            {/if}
+                            </td>
+							<td>
+								<a href="{php echo $this->createWebUrl('opus',array('did'=>$item['id'],'op'=>'pass'))}" class="label label-success">通过</a>
+								<a href="{php echo $this->createWebUrl('opus',array('did'=>$item['id'],'op'=>'reject'))}" class="label label-warning">不通过</a>
+							</td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</form>
+    {/if}
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="imageModel" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+         </div>
+         <div class="modal-body">
+            <img src="" id="imagesrc">
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="shortvideoModel" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+         </div>
+         <div class="modal-body">
+            <video src="" id="shortvideosrc" controls="controls">您的浏览器不支持 video 标签。</video>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+	$(".opus").click(function(){
+		var type = $(this).data('type');
+		if(type=='image'){
+			$("#imagesrc").attr('src',$(this).attr('src'));
+		}else if(type=='shortvideo'||type=='video'){
+			var osrc = $(this).attr('src');
+			var src = osrc.replace('jpg','mp4');
+			$("#shortvideosrc").attr('src',src);
+      type = 'shortvideo';
+		}else{
+			alert('未知类型');
+			return;
+		}
+		$("#"+type+"Model").modal();
+	})
+</script>

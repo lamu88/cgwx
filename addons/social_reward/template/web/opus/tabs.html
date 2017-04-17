@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs" >
+    <li {if $op == 'display'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'display'))}">全部作品({$opus['count']})</a>
+    </li>
+    <li {if $op == 'waiting'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'waiting'))}">待审核({$opus['waiting']})</a>
+    </li>
+    <li {if $op == 'passed'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'passed'))}">审核通过({$opus['passed']})</a>
+    </li>
+    <li {if $op == 'rejected'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'rejected'))}">审核未通过({$opus['rejected']})</a>
+    </li>
+    <li {if $op == 'suspect'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'suspect'))}">被投诉作品({$opus['suspect']})</a>
+    </li>
+    {if $op == 'viewcomplain'}
+    <li {if $op == 'viewcomplain'}class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('opus', array('op' => 'suspect'))}">投诉记录({$re_count})</a>
+    </li>
+    {/if}
+</ul>

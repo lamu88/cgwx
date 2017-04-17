@@ -1,0 +1,210 @@
+{template 'common/header'}
+<title>投诉</title>
+<style type="text/css">
+	body{
+		margin:0px;
+		width: 100%;
+	}
+</style>
+{if $enable=='false'}
+<script type="text/javascript">
+	require(['core'], function(core) {
+		core.message("该作品已被处理","{php echo $this->createMobileUrl('more')}",'success');
+	});
+</script>
+{elseif $complain}
+<script type="text/javascript">
+	require(['core'], function(core) {
+		core.message("我们已受理了您的投诉","{php echo $this->createMobileUrl('opus',array('mediaid'=>$_GPC['mediaid']))}",'success');
+	});
+</script>
+{else}
+<link rel="stylesheet" type="text/css" href="/addons/social_reward/template/mobile/center/css/app.css">
+		<style type="text/css">
+			html,body{
+				background-color: #f2f2f2;
+			}
+			.main_tip{
+				padding: 10px 0 10px 5%;
+				color: #999;
+				background-color: #f2f2f2;
+			}
+			.nav{
+				position: relative;
+			}
+			.nav:before{
+				position: absolute;
+				content: "";
+				left: 0;
+				top: -1px;
+				height: 1px;
+				width: 100%;
+				background-color: #ccc;
+				transform: scaleY(0.5);
+				-webkit-transform: scaleY(0.5);
+			}
+			.nav li{
+				padding-left: 5%;
+				position: relative;
+				background-color: #fff;
+			}
+			.nav li.active{
+				background-color: #f2f2f2;
+				width: 100%;
+			}
+			.nav li.active:after{
+				position: absolute;
+				content: "";
+				right: 12px;
+				top: 11px;
+				width: 20px;
+				height: 20px;
+				/*background-color: #09be07;
+				border-radius: 50%;*/
+				background-image: url(/addons/social_reward/static/images/dui.png);
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: 12px 10px;
+			}
+			.rows {
+				height: 45px;
+				width: 100%;
+				line-height: 45px;
+				font-size: 15px;
+				color: #000;
+				position: relative;
+			}
+			.width_min:after,.nav:after {
+				position: absolute;
+				content: '';
+				height: 1px;
+				width: 100%;
+				bottom: 0;
+				left: 0;
+				background-color: #ccc;
+				transform: scaleY(0.5);
+				-webkit-transform: scaleY(0.5);
+			}
+			.description{
+				display: block;
+				width: 90%;
+				height:100px;
+				border: 1px solid #ccc;
+				margin: 10px auto 0;
+				font-size: 12px;
+				padding: 10px;
+				resize: none;
+			}
+			.button {
+				border-radius: 7px;
+				display: block;
+				width: 295px;
+				height: 42px;
+				color: white;
+				margin: 30px auto 30px;
+				background-color: #03bd00;
+			}
+		</style>
+<div class="main_tip">请选择投诉原因</div>
+
+		<ul class="nav">
+			<li>
+				<div class="rows width_min">
+					欺诈  				
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					色情			
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					政治谣言    				
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					常识性谣言       				
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					诱导分享     				
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					恶意营销       				
+				</div>
+			</li>
+			<li>
+				<div class="rows width_min">
+					隐私信息收集      				
+				</div>
+			</li>
+		</ul>
+		<div class="main_tip">投诉描述</div>
+		<div>
+			<textarea class="description" placeholder="请输入投诉描述"></textarea>
+		</div>
+		<div>
+         	<input type="button" id="button" class="button" value="提交" tapmode="confirm_active">
+        </div>
+		<script type="text/javascript">
+			
+			var cause = '';
+			$(function(){
+				var lis = document.querySelector('ul').querySelectorAll('li');
+				for(var i = 0; i < lis.length; i++){
+					lis[i].addEventListener('click',function(){	
+						for(var i = 0; i < lis.length; i++){
+							lis[i].className = '';
+						}
+						this.className = 'active';						
+					},false);
+				}
+				
+				//点击提交
+				document.getElementById("button").addEventListener('click',function(){
+					require(['core'],function(core){				
+						var lis = document.querySelector('.nav').querySelectorAll('li');
+						for(var i = 0; i < lis.length; i++){
+							if(lis[i].className == 'active'){
+								var cause = lis[i].querySelector('div').innerHTML.trim();							
+								break;
+							}
+						}
+						if(!cause){
+							core.tip.show('请选择投诉原因');
+							return;
+						}
+						var reason = $(".description").val();
+						if(!reason){
+							core.tip.show('请描述投诉的原因');
+							$(".description").focus();
+							return;
+						}
+
+						
+						core.loading();
+						core.json('opus',{'p':'complain','op':'post','mediaid':"{$_GPC['mediaid']}",'type':cause,'reason':reason},function(result){
+							if(result.status == 1){
+								core.removeLoading();
+								core.tip.show('我们将尽快处理您的投诉');
+								window.history.back(-1);
+							}else if(result.status == 0){
+								core.removeLoading();
+								core.tip.show(result.result);
+							}else{
+								core.removeLoading();
+								core.tip.show('服务器繁忙，请稍后再试');
+							}
+						});
+					 })
+				},false);
+				
+			});						
+		</script>
+{/if}
+{template 'common/footer_base'}

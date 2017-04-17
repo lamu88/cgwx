@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[智慧砸金蛋]]></name>
+		<identifie><![CDATA[mon_egg]]></identifie>
+		<version><![CDATA[1.7.5]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[智慧砸金蛋]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+    <cover>
+
+    </cover>
+		<menu>
+	<entry title="砸活动管理" do="eggManage" state="" direct="false" />
+		</menu>
+		<home>
+		</home>
+		<profile>
+
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

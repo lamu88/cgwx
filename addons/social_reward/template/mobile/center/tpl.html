@@ -1,0 +1,22 @@
+<script src="/addons/social_reward/template/mobile/center/js/fit_image.js" type="text/javascript" charset="utf-8"></script>
+{loop $list $item}
+
+  <div class="recode">
+    <div class="imgContainer">
+      <div style="z-index: 2;">
+        <img src="{$item['originalurl']}" onload="fitImage(this.parentNode,this)" class="originalImg" />
+        <img src="{$item['blururl']}" onload="fitImage(this.parentNode,this)" class="blurImg" />
+        {if $item['type']=='shortvideo'}
+        <div class="video_icon"></div>
+        {/if}
+      </div>  
+    </div>
+    <div class="moneyTip">金额随机:{php echo number_format($item['reward_min'],2)}-{php echo number_format($item['reward_max'],2)}元|{if $item['status']==0}审核中{elseif $item['status']==1}通过{elseif $item['status']==-1}未通过{/if}</div>
+    <div class="blurSacn">模糊度:{$item['fuzzy']}% | <span>支付:{php echo number_format(pdo_fetchcolumn('SELECT sum(payment) FROM '.tablename('social_reward_reward').' WHERE did=:did and uniacid=:uniacid;',array('did'=>$item['id'],'uniacid'=>$_W['uniacid'])),2)}</span></div>
+    <div class="btns">
+      <span><a href="{php echo $this->createMobileUrl('center',array('op'=>'setting','mediaid'=>$item['media_id']))}">设置</a></span>
+      <span onclick="delImg({$item['id']})">删除</span>
+    </div>
+  </div>
+  {/loop}
+<script type="text/javascript">var showcount={$showcount}</script>

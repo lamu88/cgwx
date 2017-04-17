@@ -1,0 +1,16 @@
+<div class="bottom-bar" {if $custom_set['footcolor']}style="background:{$custom_set['footcolor']}"{/if}>
+    <ul class="row">
+        <li class="small-3 medium-3 columns">
+            <a class="bottom-nav {if $op=='b'} current{/if}" href="{php echo $this->createMobileUrl('board',array('op'=>'b'),true)}"><span>首页</span></a>
+        </li>
+        <li class="small-3 medium-3 columns">
+<a class="bottom-nav{if $op=='step1'} current{/if}" href="{if $custom_set && $custom_set['bottomlink1']}{$custom_set['bottomlink1']}{else}{php echo $this->createMobileUrl('vip',array('op'=>'step1'),true)}{/if}"><span>{if $custom_set && $custom_set['bottomtxt1']}{$custom_set['bottomtxt1']}{else}VIP服务{/if}</span></a>
+        </li>
+        <li class="small-3 medium-3 columns">
+  <a class="bottom-nav{if $op=='list'||$op=='detail'||$op=='exchagelog'} current{/if}" href="{if $custom_set && $custom_set['bottomlink2']}{$custom_set['bottomlink2']}{else}{php echo $this->createMobileUrl('exchage',array(),true)}{/if}"><span>{if $custom_set &&$custom_set['bottomtxt2']}{$custom_set['bottomtxt2']}{else}免费兑换{/if}</span></a>
+        </li>
+        <li class="small-3 medium-3 columns">
+            <a class="bottom-nav{if $op=='me'} current{/if}" href="{php echo $this->createMobileUrl('me',array('op'=>'me'),true)}"><span>个人中心</span></a>
+        </li>
+    </ul>
+</div>

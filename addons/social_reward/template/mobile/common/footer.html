@@ -1,0 +1,49 @@
+<style type="text/css">
+	footer#footer-nav .menu-list li {
+	width: 50%;
+	text-align: center;
+	float: left;
+}
+
+footer#footer-nav .menu-list li a {
+	color: #333;
+	padding: 6px 0; text-decoration: none;
+	display: block;
+}
+
+footer#footer-nav .menu-list li a > i {
+	display: block;
+	font-size: 22px;
+	line-height: 25px;
+}
+
+footer#footer-nav .menu-list li a > span {
+	display: block;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+footer#footer-nav .menu-list li.active a > span {
+	color: #f60;
+}
+
+footer#footer-nav .menu-list li.active a > i {
+	color: #f60;
+}
+
+footer#footer-nav .menu-list:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+</style>
+
+<footer id="footer-nav">
+    <ul class="menu-list" style="margin:0;">
+        <li {if $_GPC['p']=='index' || empty($_GPC['p'])}class="active"{/if}><a href="{php echo $this->createMobileUrl('center')}"><i class="fa fa-database"></i><span>我的作品</span></a></li>
+        <li  {if $_GPC['p']=='myreward'}class="active"{/if}><a href="{php echo $this->createMobileUrl('more'))}"><i class="fa fa-gift"></i><span>更多照片/视频</span></a></li>
+    </ul>
+</footer>

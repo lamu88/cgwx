@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.dede168.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[幸运微相册]]></name>
+		<identifie><![CDATA[we7_album]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[展示一系列图片来介绍你的公众号]]></ability>
+		<description><![CDATA[幸运微相册]]></description>
+		<author><![CDATA[efwww.com]]></author>
+		<url><![CDATA[http://www.dede168.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="相册列表入口设置" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="相册分类" do="category" state="" direct="false" />
+			<entry title="相册列表" do="list" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="相册首页" do="list" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

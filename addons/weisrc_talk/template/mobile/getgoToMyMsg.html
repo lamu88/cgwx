@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--android宽度自适应1:1-->
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <title>{$title}</title>
+
+    <link rel="stylesheet" type="text/css" href="{RES}/themes/css/basic.css"/>
+    <script type="text/javascript" src="{RES}/themes/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/basic.js"></script>
+
+    <!--请写入本页中的所有CSS-->
+    <style>
+        <!--
+        /*根据用户自定义颜色确定*/
+        .pageTopBox {
+            border-bottom: 1px solid #11CC9F;
+        }
+
+        -->
+        .pageContentBox {
+            visibility: hidden
+        }
+
+        /*顶部*/
+        .top {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .title2 {
+            margin-left: 10px;
+            font-size: 17px;
+            color: #11CC9F;
+            font-weight: 700;
+        }
+
+        .msg {
+            margin: 8px 0 0 10px;
+        }
+
+        .titleR {
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+
+        .titleR img {
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+            vertical-align: middle;
+        }
+
+        .back {
+            display: inline-block;
+            width: 90px;
+            height: 40px;
+            line-height: 40px;
+            text-indent: 12px;
+            color: #fff;
+            font-size: 15px;
+            background-color: #11CC9F;
+            vertical-align: middle;
+            margin-left: 5px;
+            border-top-left-radius: 30px;
+            -moz-border-top-left-radius: 30px;
+            -ms-border-top-left-radius: 30px;
+            -o-border-top-left-radius: 30px;
+            -webkit-border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            -moz-border-bottom-left-radius: 30px;
+            -o-border-bottom-left-radius: 30px;
+            -ms-border-bottom-left-radius: 30px;
+            -webkit-border-bottom-left-radius: 30px;
+        }
+
+        /*消息列表*/
+        .list_lan {
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+            background-color: #EAEFF5;
+        }
+
+        .list_white {
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+            background-color: #fff;
+        }
+
+        .list {
+            position: relative;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .borderMM {
+            border: 1px solid #FF5FAE;
+        }
+
+        .borderGG {
+            border: 1px solid #61C8FF;
+        }
+
+        .textMM {
+            color: #FF5FAE;
+            font-size: 13px;
+        }
+
+        .textGG {
+            color: #61C8FF;
+            font-size: 13px;
+        }
+
+        .head {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .head img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            -o-border-radius: 100%;
+            -webkit-border-radius: 100%;
+        }
+
+        .listR {
+            display: inline-block;
+            max-width: 65%;
+            vertical-align: top;
+            margin-left: 1%;
+        }
+
+        .listR span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .loc {
+            display: inline-block;
+            height: 11px;
+            line-height: 11px;
+            padding: 0 5px;
+            text-align: center;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 30px;
+            -moz-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -o-border-radius: 30px;
+            -webkit-border-radius: 30px;
+        }
+
+        .bgIn {
+            background-color: #FF5FAE;
+        }
+
+        .bgOut {
+            background-color: #bbb;
+        }
+
+        .num {
+            position: absolute;
+            display: inline-block;
+            max-height: 18px;
+            line-height: 18px;
+            right: 10px;
+            top: 30px;
+            padding: 0px 5px;
+            font-size: 12px;
+            color: #fff;
+            background-color: #11CC9F;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+
+        .con {
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .textMini {
+            color: #ccc;
+        }
+    </style>
+    <!--请写入本页中的所有的JS-->
+    <script type="text/javascript">
+        $(function () {
+
+
+        });
+    </script>
+</head>
+<body>
+<!--S页面中间内容-->
+<div class="pageContentBox">
+    <!--S 顶部-->
+    <div class="top">
+        <span class="title2">我的消息</span>
+        <div class="msg"><span style="color:#ccc;">消息总数 {$noreadcount}</span>
+        </div>
+        <div class="titleR">
+            <a href="{php echo $this->createMobileurl('getnearMyInfo', array(), true)}">
+                <img src="{php echo tomedia($curuser['headimgurl']);}" alt=""/>
+            </a>
+            <a class="back" href="{php echo $this->createMobileurl('index', array(), true)}">返回现场</a>
+        </div>
+    </div>
+    <!--E 顶部-->
+    {php $flag=true;}
+    {loop $chats $item}
+    <a href="{php echo $this->createMobileurl('getnearTalk', array('userid' => $item['from_user']), true)}">
+        <div class="{if $flag==true}list_white{else}list_lan{/if}">
+            {php $flag=!$flag;}
+            <div class="{if $item['sex']==1}borderGG{else}borderMM{/if} head">
+                <img src="{php echo tomedia($item['headimgurl']);}" alt="" onerror="this.src='resource/images/noavatar_middle.gif'"/>
+            </div>
+            <div class="listR">
+                <div>
+                    <span class="{if $item['sex']==1}textGG{else}textMM{/if}">{$item['nickname']}</span> <!--女生 textMM-->
+                    <span class="textMini">{php echo $this->format_date($item['dateline']);}</span>
+                    {if $this->IsRange($item['lat'], $item['lng'])==0}
+                    <span class="loc bgOut">场外</span>
+                    {else}
+                    <span class="loc bgIn">场内</span>
+                    {/if}
+                </div>
+                <div class="con">{php echo $this->rep($item['content']);}</div>
+            </div>
+            {if $item['count']!=1}
+            <span class="num">{$item['count']}</span>
+            {/if}
+        </div>
+    </a>
+    {/loop}
+</div>
+<!--E页面中间内容-->
+<!--S页面底部Bar内容-->
+{php include $this->template('_bar');}
+<!--E页面底部Bar内容-->
+<script type="text/javascript">
+    window.onload = function () {
+        $(".pageContentBox").css({visibility: "visible"});
+        setTimeout("setTimeOut_F5()", 30000);
+    }
+
+//    $("#set_clear").click(function () {
+//        $.post(
+//                '/user/getnearMsgClear', function (result) {
+//                    if (result.isResultTrue) {
+//                        window.location.reload(true);
+//                    }
+//                }
+//        )
+//    });
+
+    $("#set_f5").click(function () {
+        window.location.href = "{php echo $this->createMobileurl('getgoToMyMsg', array(), true)}";
+    })
+
+    var setTimeOut_F5 = function () {
+        window.location.href = "{php echo $this->createMobileurl('getgoToMyMsg', array(), true)}";
+        setTimeout("setTimeOut_F5()", 30000);
+    }
+</script>
+{php echo register_jssdk(false);}
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            success: function(){
+            },
+            cancel: function(){
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+</body>
+</html>

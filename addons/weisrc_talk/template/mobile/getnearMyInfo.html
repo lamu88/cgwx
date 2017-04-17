@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--android宽度自适应1:1-->
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <title>{$title}</title>
+    <link rel="stylesheet" type="text/css" href="{RES}/themes/css/basic.css"/>
+    <script type="text/javascript" src="{RES}/themes/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{RES}/themes/js/basic.js"></script>
+
+    <!--请写入本页中的所有CSS-->
+    <style>
+        .pageContentBox {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bigDiv {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .bigImgBox {
+            width: 100%;
+            /*overflow: hidden;*/
+        }
+
+        /*背景倒影*/
+        .bigImg {
+            display: block;
+            width: 100%;
+        }
+
+        .reflection {
+            display: block;
+            width: 100%;
+            -webkit-transform: scaleY(-1);
+            -moz-transform: scaleY(-1);
+            -ms-transform: scaleY(-1);
+            -o-transform: scaleY(-1);
+            transform: scaleY(-1);
+            opacity: 1;
+            filter: alpha(opacity='100');
+        }
+
+        .overlay {
+            background-image: -moz-linear-gradient(center bottom, rgb(0, 0, 0) 1%, rgba(0, 0, 0, 0.5) 100%);
+            background-image: -o-linear-gradient(rgba(0, 0, 0, 0.5) 1%, rgb(0, 0, 0) 30%);
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.05, rgb(0, 0, 0)), color-stop(1, rgba(0, 0, 0, 0.5)));
+            filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColor=0, EndColorStr=#000000);
+        }
+
+        /*信息*/
+        .info {
+            position: fixed;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.30);
+        }
+
+        .headUpTip {
+            display: inline-block;
+            height: 22px;
+            line-height: 22px;
+            font-size: 12px;
+            color: #fff;
+            padding: 0 12px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            -moz-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -o-border-radius: 30px;
+            -webkit-border-radius: 30px;
+            margin: 7px auto 0;
+        }
+
+        .uName {
+            display: block;
+            margin: 10px 0 0 10px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .health {
+            margin: 5px 0 0 10px;
+        }
+
+        .health span {
+            display: inline-block;
+            padding: 1px 5px;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-border-radius: 4px;
+        }
+
+        .xinde {
+            max-width: 90%;
+            margin: 10px 0 9px 10px;
+            color: #fff;
+            line-height: 16px;
+            font-size: 12px;
+        }
+
+        /*编辑*/
+        .edit {
+            float: right;
+            display: block;
+            padding: 0 6px;
+            height: 22px;
+            line-height: 22px;
+            margin-right: 10px;
+            margin-top: -20px;
+            background-color: #0C9;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        /*编辑层*/
+        .editDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            visibility: hidden;
+        }
+
+        .eTop {
+            width: 100%;
+            height: 30px;
+            padding: 10px 0;
+            background-color: #11CC9F;
+            color: #fff;
+            font-size: 16px;
+            text-indent: 20px;
+        }
+
+        .eTop a img {
+            display: inline-block;
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            width: 22px;
+            height: 22px;
+        }
+
+        .tip {
+            display: block;
+            margin: 15px auto 0;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .textarea {
+            width: 90%;
+            height: 60px;
+            line-height: 20px;
+            padding: 2px 1%;
+            margin: 5px auto;
+            display: block;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            color: #666;
+        }
+
+        /*textarea元素样式*/
+        .btnNormal {
+            display: block;
+            width: 92%;
+            margin: 5px auto;
+            height: 40px;
+            line-height: 40px;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            background: #fff;
+            background: -moz-linear-gradient(top, #fff, #f3f3f3 80%);
+            background: -webkit-gradient(linear, 0 0, 0 80%, from(#fff), to(#f3f3f3));
+            text-align: center;
+        }
+
+        .tit {
+            text-align: center;
+            font-size: 14px;
+            color: #11CC9F;
+        }
+
+        .box {
+            width: 90%;
+            overflow: hidden;
+            position: relative;
+            height: 40px;
+            margin: 0 auto 3px;
+        }
+
+        .ts_box {
+            height: 38px;
+            border: solid 1px #11CC9F;
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+            text-align: center;
+            overflow: hidden;
+            background: #fff
+        }
+
+        .ts_point {
+            height: 100%;
+            width: 1px;
+            background: #11CC9F;
+            margin: auto;
+            position: relative;
+            z-index: 9;
+        }
+
+        .ts_point_yuan {
+            height: 20px;
+            width: 30px;
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+            background: #11CC9F;
+            position: absolute;
+            left: -15px;
+            top: 10px;
+            color: #fff;
+            line-height: 20px;
+            font-size: 12px
+        }
+
+        .ts_ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 16px;
+            padding: 12px 0;
+        }
+
+        .ts_ul li {
+            height: 16px;
+            line-height: 16px;
+            float: left;
+            border-right: solid 1px #699;
+            width: 100px;
+            color: #000;
+            list-style: none;
+        }
+    </style>
+    <!--请写入本页中的所有的JS-->
+    <script type="text/javascript">
+        $(function () {
+
+
+        });
+    </script>
+</head>
+<body>
+<!--S页面中间内容-->
+<!--S 大图片-->
+<div class="bigDiv">
+    <div class="bigImgBox">
+        <img src="{php echo tomedia($user['headimgurl'])}" alt="" class="bigImg" onerror="this.src='resource/images/noavatar_middle.gif'"/>
+        <img src="{php echo tomedia($user['headimgurl'])}" alt="" class="reflection" onerror="this.src='resource/images/noavatar_middle.gif'"/>
+        <!--倒影  两次引用同一个头像-->
+    </div>
+    <div class="overlay"></div>
+    <!--倒影-->
+    <div class="info"> <!--信息-->
+        <div style="text-align: center">
+            <div class="headUpTip">发送“头像”给公众号，可设置头像</div>
+        </div>
+        <span class="uName">{$user['nickname']}&nbsp;&nbsp;{if empty($user['age'])}--{else}{$user['age']}{/if}岁</span>
+        <a class="edit">编辑</a>
+        <div class="clearB"></div>
+        <div class="health">
+            <span id="set_sg" style="background-color: #11CC9F">{if empty($user['height'])}--{else}{$user['height']}CM{/if}</span>
+            <span id="set_tz" style="background-color: #FF5FAE">{if empty($user['weight'])}--{else}{$user['weight']}kg{/if}</span>
+            <span id="set_zy" style="background-color: #4EB947">{if empty($user['job'])}--{else}{$user['job']}{/if}</span>
+        </div>
+        <div class="xinde">{$user['content']}</div>
+    </div>
+</div>
+<!--E 大图片-->
+
+<!--S 弹出-->
+<div class="editDiv">
+    <div class="eTop">修改资料
+        <a class="closeEdit"><img src="{RES}/themes/images/iconClose2.png" alt=""></a>
+    </div>
+    <span class="tip">亲~完善个人资料，更具交友魅力哦</span>
+    <div class="tit">身高(CM)</div>
+    <div class="box" id="box1"></div>
+    <div class="tit">体重(KG)</div>
+    <div class="box" id="box2"></div>
+    <div class="tit">年龄(岁)</div>
+    <div class="box" id="box3"></div>
+    <div class="tit">职业</div>
+    <div class="box" id="box4"></div>
+    <textarea class="textarea" style="width: 88%;margin-top:10px;" placeholder="交友心声">{$user['content']}</textarea>
+    <a class="btnNormal" style="width: 90%">保存</a>
+</div>
+<!--E 弹出-->
+<!--E页面中间内容-->
+
+<!--底部菜单-->
+<!-- <div class="phone_bottomMenu"> -->
+<!-- 	<a><span>首页</span></a> -->
+<!--     <a><span>酒吧名片</span></a> -->
+<!--     <a><span>现场交友</span></a> -->
+<!--     <a><span>邀友帖</span></a> -->
+<!--     <a style="border:0"><span>New活动</span></a> -->
+<!-- </div> -->
+
+<script>
+    (function () {
+        var isAndroid = (/android/gi).test(navigator.appVersion);
+        var isIDevice = (/iphone|ipad/gi).test(navigator.appVersion);
+        var isPlaybook = (/playbook/gi).test(navigator.appVersion);
+        var isTouchPad = (/hp-tablet/gi).test(navigator.appVersion);
+        var hasTouch = 'ontouchstart' in window && !isTouchPad;
+        var ev_start = hasTouch ? 'touchstart' : 'mousedown';
+        var ev_move = hasTouch ? 'touchmove' : 'mousemove';
+        var ev_end = hasTouch ? 'touchend' : 'mouseup';
+        window.touchSelect = function (box, type) {
+            this.box = document.getElementById(box);
+            this.type = type;
+            this.create();
+            this.box = $('#' + this.id)[0];
+            this.obj = $('#' + this.id).find('ul')[0];
+            this.point = $('#' + this.id).find('.ts_point')[0];
+
+            this.max = this.obj.offsetWidth;
+            this.ready = false;
+            this.half = this.box.offsetWidth / 2;
+            this.end = this.obj.offsetWidth - this.half;
+
+            this.init();
+            this.getValue();
+        }
+        touchSelect.prototype.init = function () {
+            var self = this;
+            var arg;
+            this.box.addEventListener(ev_start, function (e) {
+                e.preventDefault();
+                e = hasTouch ? e.touches[0] : e;
+                self.x = e.pageX - self.obj.offsetLeft;
+                self.ready = true;
+            }, false);
+
+            document.addEventListener(ev_move, function (e) {
+                if (!self.ready)
+                    return;
+                //arg = arguments.callee;
+                e.preventDefault();
+                e = hasTouch ? e.touches[0] : e;
+                var newX = e.pageX - self.x;
+                if ((newX > 0 && newX <= self.half) || (newX < 0 && Math.abs(newX) < self.end)) {
+                    $(self.obj).css({left: newX});
+                    self.getValue();
+                }
+            }, false);
+
+            document.addEventListener(ev_end, function (e) {
+                if (!self.ready)
+                    return;
+                self.ready = false;
+                //document.removeEventListener(ev_move,arg);
+            }, false);
+        }
+        touchSelect.prototype.getValue = function () {
+            var num = (this.obj.offsetLeft * -1) + this.half;
+            var old = 35;
+            if (this.type == 'height')
+                old = 135;
+            else if (this.type == 'age')
+                old = 15;
+            this.result = parseInt(num / this.max * 70) + old;
+            if (this.type == 'job') {
+                var a = parseInt((this.obj.offsetLeft - this.half) * -1);
+                a = Math.floor(a / 100);
+                this.result = $('#' + this.id).find('li')[a].innerHTML;
+            }
+            $(this.point).find('.ts_point_yuan').html(this.result);
+        }
+        touchSelect.prototype.getId = function () {
+            return ('ts' + Math.random() + new Date().getTime()).replace('.', '');
+        }
+        touchSelect.prototype.create = function () {
+            this.id = this.getId();
+            var li = '';
+            if (this.type == 'height') {
+                li += '<li>140</li>';
+                li += '<li>150</li>';
+                li += '<li>160</li>';
+                li += '<li>170</li>';
+                li += '<li>180</li>';
+                li += '<li>190</li>';
+                li += '<li>200</li>';
+            } else if (this.type == 'weight') {
+                li += '<li>40</li>';
+                li += '<li>50</li>';
+                li += '<li>60</li>';
+                li += '<li>70</li>';
+                li += '<li>80</li>';
+                li += '<li>90</li>';
+                li += '<li>100</li>';
+            } else if (this.type == 'age') {
+                li += '<li>20</li>';
+                li += '<li>30</li>';
+                li += '<li>40</li>';
+                li += '<li>50</li>';
+                li += '<li>60</li>';
+                li += '<li>70</li>';
+                li += '<li>80</li>';
+            }
+            else if (this.type == 'job') {
+                li += '<li>IT</li>';
+                li += '<li>工</li>';
+                li += '<li>商</li>';
+                li += '<li>金</li>';
+                li += '<li>教</li>';
+                li += '<li>文</li>';
+                li += '<li>艺</li>';
+                li += '<li>医</li>';
+                li += '<li>法</li>';
+                li += '<li>教</li>';
+                li += '<li>政</li>';
+                li += '<li>学</li>';
+                li += '<li>无</li>';
+            }
+            var html = '<div class="ts_box" id="' + this.id + '">';
+            html += '<div class="ts_point">';
+            html += '<div class="ts_point_yuan"></div></div>';
+            html += '<ul class="ts_ul">' + li + '</ul></div>';
+            $(html).appendTo($(this.box));
+            $('#' + this.id).css({width: this.box.offsetWidth - 2});
+            var width = $('#' + this.id).find('li')[0].offsetWidth;
+            var len = $('#' + this.id).find('li').length;
+            $('#' + this.id).find('ul').css({width: width * len});
+        }
+    })();
+
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        var winH = $(window).height();
+        $(".bigDiv").height(winH);
+
+        /*确保加载完成后 显示*/
+        $(".bigDiv").css({visibility: "visible"});
+
+        /*打开关闭编辑框*/
+        $(".edit").click(function () {
+            $(".editDiv").css({visibility: "visible"});
+        });
+        $(".closeEdit").click(function () {
+            $(".editDiv").css({visibility: "hidden"});
+        });
+
+        window.s1 = new touchSelect('box1', 'height');
+        window.s2 = new touchSelect('box2', 'weight');
+        window.s3 = new touchSelect('box3', 'age');
+        window.s4 = new touchSelect('box4', 'job');
+    }
+
+    url = "{php echo $this->createMobileurl('updateUserseat', array(), true)}";
+    $(".btnNormal").click(function () {
+        var sg = s1.result;
+        var tz = s2.result;
+        var nl = s3.result;
+        var zy = s4.result;
+        var xs = $(".textarea").val();
+        var nickname = "{$user['nickname']}";
+        $.ajax({
+            type : 'POST',
+            url : url,
+            data : {
+                age: nl,
+                height: sg,
+                weight: tz,
+                zy: zy,
+                xs: xs
+            },
+            dataType : 'json',
+            timeout : 3000,
+            context : $('body'),
+            success : function(data) {
+                if (data.isResultTrue) {
+                    $(".editDiv").css({visibility: "hidden"});
+                    $(".uName").html(nickname + '&nbsp;&nbsp;' + nl + '岁');
+                    $("#set_sg").html(sg + 'CM');
+                    $("#set_tz").html(tz + 'kg');
+                    $("#set_zy").html(zy);
+                    if (xs.trim() != '') {
+                        $(".xinde").html(xs);
+                    }
+                } else {
+                    alert(data.resultMsg);
+                }
+
+            },
+            error : function(data) {
+                alert('网络通讯失败，请重试!');
+            }
+        });
+    });
+</script>
+{php echo register_jssdk(false);}
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            success: function(){
+            },
+            cancel: function(){
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+</body>
+</html>

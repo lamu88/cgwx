@@ -1,0 +1,116 @@
+{template 'common/header'}
+<div class="main">
+
+	<form action="" method="post" class="form-horizontal form" id="setting-form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$set['id']}">
+		<div class="panel panel-default">
+			<div class="panel-heading">参数设置</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#tab_fxset">公众号设置</a></li>
+          <li><a href="#tab_notice">消息模版</a></li>
+				</ul>
+				<div class="tab-content">
+          <div class="tab-pane active" id="tab_fxset">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号二维码：</label>
+                  <div class="col-xs-12 col-sm-9">
+                    {if file_exists(IA_ROOT.'attachment/qrcode_'.$_W['acid'].'.jpg')}
+                      {php echo tpl_form_field_image('followqr', $settings['followqr'],'/attachment/qrcode_'.$_W['acid'].'.jpg')}
+                    {else}
+                    {php echo tpl_form_field_image('followqr', $settings['followqr'])}
+                    {/if}
+                    <span class="help-block">玩家在页面可以通过扫描二维码进入公众号主页</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppID(应用ID)</label>
+                  <div class="col-xs-12 col-sm-9">
+                      <input type="text" name="wxappid" value="{if empty($settings['wxappid'])}{$_W['account']['key']}{else}{$settings['wxappid']}{/if}" class="form-control" placeholder="微信公众平台APPID">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret(应用密钥)</label>
+                  <div class="col-sm-9 col-xs-12">
+                      <input type="text" value="{if empty($settings['wxsecret'])}{$_W['account']['secret']}{else}{$settings['wxsecret']}{/if}" class="form-control" name="wxsecret" placeholder="认证服务号secret">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-pane" id="tab_notice">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">文字提示</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <input class="form-control" name="tip" value="{$settings['tip']}">
+                       <div class="help-block">因为图片处理需要的时间较久，在生成途中再次提示一下用户，避免用户没有耐心等待。默认：正在拼命处理中，请稍后。。。</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">友情提示</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <textarea class="form-control" name="ftip" rows="5">{$settings['ftip']}</textarea>
+                       <div class="help-block">例：友情提示：收到图片后需要发送给其他人才会被人看到并进行打赏哟~</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">审核结果消息类型</label>
+                    <div class="col-sm-9 col-xs-12">
+                       <label class="checkbox-inline">
+                          <input type="radio" name="noticetype"  value="0" {if $settings['noticetype'] == 0}checked{/if}> 消息模版
+                       </label>
+                       <label class="checkbox-inline">
+                          <input type="radio" name="noticetype"  value="1" {if $settings['noticetype'] == 1}checked{/if}> 自定义
+                       </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">审核结果通知(消息模板ID)</label>
+                    <div class="col-sm-9 col-xs-12">
+                      <input min="0" type="text" class="form-control" name="verify_notice" value="{$settings['verify_notice']}">
+                      <div class="help-block">公众平台模板消息编号: OPENTM405933510 </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">审核结果通知(自定义)</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea class="form-control" name="verify_custom" rows="5">{$settings['verify_custom']}</textarea>
+                        <div class="help-block">
+                          例子：
+                          <blockquote>
+                            <small>
+                            尊敬的【#nickname#】\n您有一个内容审核#result#，如有疑问可找客服申诉，内容编号为：#index#<small>注：#xxx#，xxx为系统自动替换的内容,\n表示换行</small>
+                            </small>
+                            </small>
+                          </blockquote>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+<script>
+
+$(function () {
+		window.optionchanged = false;
+		$('#myTab a').click(function (e) {
+			e.preventDefault();//阻止a链接的跳转行为
+			$(this).tab('show');//显示当前选中的链接及关联的content
+		})
+	});
+</script>
+{template 'common/footer'}

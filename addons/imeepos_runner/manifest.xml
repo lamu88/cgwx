@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+    <application setting="true">
+        <name><![CDATA[人人快递]]></name>
+        <identifie><![CDATA[imeepos_runner]]></identifie>
+        <version><![CDATA[9.8.9]]></version>
+        <type><![CDATA[business]]></type>
+        <ability><![CDATA[人人快递，实时听单抢单，发布任务，卫星实时定位]]></ability>
+        <description><![CDATA[人人快递，实时听单抢单，发布任务，卫星实时定位，快递进度实时查询，佣金，认证服务等等]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[http://www.dede168.com/]]></url>
+    </application>
+    <platform>
+        <subscribes>
+        </subscribes>
+        <handles>
+            <message type="text" />
+        </handles>
+        <rule embed="true" />
+    </platform>
+    <bindings>
+        <cover>
+            <entry title="实时听单" do="index" />
+			<entry title="发布任务" do="post" />
+			<entry title="会员中心" do="home" />
+			<entry title="首页入口" do="index" />
+			 <entry title="任务大厅" do="tasks" />
+        </cover>
+        <menu>
+            <entry title="任务管理" do="task" state="" direct="false" />
+            <entry title="认证管理" do="v" state="" direct="false" />
+            <entry title="插件管理" do="plugin_list" state="" direct="false" />
+            <entry title="快递监控" do="runner" state="" direct="false" />
+        </menu>
+		 
+        <home call="getItemTiles"></home>
+    </bindings>
+	
+    <install><![CDATA[]]></install>	  
+    <uninstall><![CDATA[]]></uninstall>
+    <upgrade><![CDATA[update.php]]></upgrade>
+
+</manifest>

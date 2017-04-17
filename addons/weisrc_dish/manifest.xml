@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[码上微点餐]]></name>
+		<identifie><![CDATA[weisrc_dish]]></identifie>
+		<version><![CDATA[4.9.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[码上微点餐]]></ability>
+		<description><![CDATA[码上微点餐]]></description>
+		<author><![CDATA[dede168源码网]]></author>
+		<url><![CDATA[www.dede168.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页入口设置" do="wapindex" state="" direct="false" />
+			<entry title="门店列表入口" do="waprestList" state="" direct="false" />
+			<entry title="菜品列表入口" do="waplist" state="" direct="false" />
+			<entry title="智能点餐入口" do="wapselect" state="" direct="false" />
+			<entry title="我的订单入口" do="orderlist" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="门店管理" do="stores" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />					<entry title="门店类型" do="type" state="" direct="false" />				        <entry title="区域管理" do="area" state="" direct="false" />
+			<entry title="广告管理" do="ad" state="" direct="false" />
+			<entry title="会员管理" do="allfans" state="" direct="false" />
+			<entry title="帐号管理" do="account" state="" direct="false" />
+			<entry title="模板管理" do="template" state="" direct="false" />
+			<entry title="基本设置" do="setting" state="" direct="false" />
+		
+		</menu>
+		<home>
+			<entry title="码上微点餐" do="wapindex" state="" direct="false" />
+			<entry title="门店列表" do="waprestList" state="" direct="false" />
+			<entry title="菜品列表" do="waplist" state="" direct="false" />
+			<entry title="智能点餐" do="wapselect" state="" direct="false" />
+			<entry title="我的订单" do="orderlist" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

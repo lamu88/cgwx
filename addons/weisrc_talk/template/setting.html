@@ -1,0 +1,110 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'post'))}">添加用户</a></li>
+    <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'display'))}">管理用户</a></li>
+    <li class="active"><a href="index.php?c=profile&a=module&do=setting&m=weisrc_talk">参数设置</a></li>
+</ul>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                基本设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">网站名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" class="form-control" value="{$settings['weisrc_talk']['title']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">顶部广告</label>
+                    <div class="col-sm-9">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            {php echo tpl_form_field_image('ad_image', $settings['weisrc_talk']['ad_image'], '../addons/weisrc_talk/template/themes/images/topImg2.jpg', array('width' => 720, 'height' => 150))}
+                            <span style="color:red;">*建议尺寸：宽720像素，高150像素</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="ad_title" value="{$settings['weisrc_talk']['ad_title']}" id="ad_title" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告链接</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="ad_url" value="{$settings['weisrc_talk']['ad_url']}" id="ad_url" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商家坐标</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_coordinate('baidumap', $settings['weisrc_talk'])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务范围</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input id="range" name="range" type="text" class="form-control form-control-excel" value="{$settings['weisrc_talk']['range']}"  maxlength="50"/>
+                            <span class="input-group-addon">米</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="copyright" value="{$settings['weisrc_talk']['copyright']}" id="copyright" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权链接</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="copyright_url" value="{$settings['weisrc_talk']['copyright_url']}" id="copyright_url" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                分享信息
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="share_title" name="share_title" value="{$settings['weisrc_talk']['share_title']}" class="form-control" /><div class="help-block"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图标</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('share_image', $settings['weisrc_talk']['share_image'], '../addons/weisrc_talk/icon.jpg', array('width' => 640, 'height' => 640))}
+                        <span class="help-block" style="color:#f00">建议尺寸640*640</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享摘要</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="share_desc" name="share_desc" value="{$settings['weisrc_talk']['share_desc']}" class="form-control" />
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享链接</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="share_url" name="share_url" value="{$settings['weisrc_talk']['share_url']}" class="form-control" />
+                        <div class="help-block">建议留空，让用户把当前网页链接分享出去。推荐用微信平台的素材库，转成短地址。<a target="_blank" href="http://www.dwz.cn/">短网址转换</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+	</form>
+</div>
+{template 'common/footer'}

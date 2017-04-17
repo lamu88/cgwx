@@ -1,0 +1,160 @@
+{template 'common/header'}
+
+<style type="text/css">
+	img.opus{
+		cursor: pointer;
+	}
+	#imagesrc{
+		width: 100%;
+	}
+	#shortvideosrc{
+		width: 100%;
+	}
+</style>
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="social_reward" />
+                <input type="hidden" name="do" value="rewardRecord" />
+                <input type="hidden" name="p"  value="index" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">打赏者或上传者昵称</label>
+                    <div class="col-xs-12 col-sm-7  col-md-8 col-lg-9">
+                        <input class="form-control" name="nickname" id="" type="text" value="{$_GPC['nickname']}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">打赏时间</label>
+                    
+                    <div class="col-xs-12 col-sm-7 col-lg-7">
+                    <div class="input-group">
+	                    <div class='input-group-addon'>
+	                        <label class='radio-inline' style='margin-top:-7px;'>
+	                            <input type='radio' value='0' name='searchtime' {if $_GPC['searchtime']=='0'}checked{/if}>不搜索
+	                        </label>
+	                        <label class='radio-inline'  style='margin-top:-7px;'>
+	                            <input type='radio' value='1' name='searchtime' {if $_GPC['searchtime']=='1'}checked{/if}>搜索
+	                        </label>
+	                    </div>
+	                    {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+	                    </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <style>
+        .label{cursor:pointer;}
+    </style>
+    {template 'web/rewardRecord/tabs'}
+		<div class="panel panel-default">
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+						<tr>
+							<th >ID</th>
+              <th >打赏者</th>
+              <th>打赏者头像</th>
+							<th >上传者</th>
+							<th >作品</th>
+              <th >打赏金额</th>
+							<th >打赏时间</th>
+
+              <th>评价</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $list $item}
+						<tr>
+							<td>{$item['id']}</td>
+							<td>{$item['nickname']}</td>
+							<td><img src="{if !empty($item['headimgurl'])}{$item['headimgurl']}{else}resource/images/noavatar_middle.gif{/if}" width="50" style="border-radius:50%;"></td>
+              <td>{$item['uploader']}</td>
+              <td><img src="{$item['src']}" width="60" class="opus" data-type="{$item['type']}"></td>
+              <td>{$item['payment']}</td>
+							<td>{php echo date("Y-m-d",$item['createtime'])}</td>
+							<td>
+              {if $item['complain']==1}
+              <span class="label label-warning">已投诉</span>
+              {elseif $item['liked']==1}
+              <span class="label label-success">赞</span>
+              {elseif $item['unliked']==1}
+              <span class="label label-danger">踩</span>
+              {/if}
+              </td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="imageModel" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+         </div>
+         <div class="modal-body">
+            <img src="" id="imagesrc">
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="shortvideoModel" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+         </div>
+         <div class="modal-body">
+            <video src="" id="shortvideosrc" controls="controls">您的浏览器不支持 video 标签。</video>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+<script type="text/javascript">
+  $(".opus").click(function(){
+    var type = $(this).data('type');
+    if(type=='image'){
+      $("#imagesrc").attr('src',$(this).attr('src'));
+    }else if(type=='shortvideo'){
+      var osrc = $(this).attr('src');
+      var src = osrc.replace('jpg','mp4');
+      $("#shortvideosrc").attr('src',src);
+    }else{
+      alert('未知类型');
+      return;
+    }
+    $("#"+type+"Model").modal();
+  })
+</script>

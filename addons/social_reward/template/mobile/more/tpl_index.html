@@ -1,0 +1,23 @@
+{loop $list $key=>$item}
+    <div class="order_list">
+        <div class="left">
+            <img src="{$item['headimgurl']}" width="40"  style="border-radius:50%">
+        </div>
+        <div class="right">
+            <div class="right-top">{$item['nickname']}</div>
+            <div class="right-middle">
+                <a href="{php echo $this->createMobileUrl('opus',array('mediaid'=>$item['media_id']))}"><img src="{if empty($item['scaned'])&&$item['openid']!=$_W['openid']}{$item['blururl']}{else}{$item['originalurl']}{/if}" width="120" height="100">
+                {if $item['type']=='shortvideo'}
+                <div class="video_icon"></div>
+                {/if}
+                </a>
+            </div>
+            <div class="right-bottom">
+                <div class="keng"><i></i>踩({php echo intval($item['unlikednum'])})</div>
+                <div class="zan"><i></i>赞({php echo intval($item['likednum'])})</div>
+                <div><i></i>浏览({php echo intval($item['scantime'])})</div>
+            </div>
+        </div>
+     </div>
+    {/loop}
+    <script type="text/javascript">var showcount={$showcount}</script>

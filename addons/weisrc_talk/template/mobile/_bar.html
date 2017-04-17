@@ -1,0 +1,14 @@
+<div class="pageBtmBox">
+    <div class="copyRight">
+        {if $config['copyright']}
+        <a href="{if $config['copyright_url']}{$config['copyright_url']}{else}#{/if}">
+            <!--&copy;weisrc.com-->
+            {$config['copyright']}
+        </a>
+        {/if}
+    </div>
+    <div class="ctrlBox">
+        <a class="navOne" id="set_f5"><img src="{RES}/themes/images/iconNavRefresh.png"/></a>
+        <a class="navOne" href="javascript:history.go(-1)"><img src="{RES}/themes/images/iconReturn.png"/></a>
+    </div>
+</div>
